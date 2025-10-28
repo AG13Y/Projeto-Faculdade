@@ -1,0 +1,91 @@
+/*
+	Installed from https://ui.angular-material.dev/api/registry/
+	Update this file using `@ngm-dev/cli update styles/_tabs`
+*/
+
+@use '@angular/material' as mat;
+
+.m3-primary-tab-group > .mat-mdc-tab-header {
+  .mdc-tab {
+    mat-icon {
+      font-variation-settings: 'FILL' 0;
+      transition: font-variation-settings
+        var(--mat-tab-animation-duration, 250ms) cubic-bezier(0.35, 0, 0.25, 1);
+    }
+    &--active {
+      mat-icon {
+        font-variation-settings: 'FILL' 1;
+      }
+    }
+  }
+}
+
+[fitInkBarToContent],
+[ng-reflect-fit-ink-bar-to-content='true'] {
+  > .mat-mdc-tab-header,
+  > .mat-mdc-tab-link-container {
+    @include mat.tabs-overrides(
+      (
+        active-indicator-shape: 3px 3px 0 0,
+        active-indicator-height: 3px,
+      )
+    );
+  }
+}
+
+// apply below class to <mat-tab-group />
+.pill-tab-group {
+  --active-indicator-color: var(--mat-sys-primary-container);
+  --active-indicator-height: 32px;
+  --active-indicator-shape: var(--mat-sys-corner-small);
+
+  // set this to transparent if you don't want ripple to be visible
+  --ripple-color: var(--mat-sys-on-surface);
+
+  @include mat.tabs-overrides(
+    (
+      active-indicator-height: var(--active-indicator-height),
+      active-indicator-color: var(--active-indicator-color),
+      active-focus-indicator-color: var(--active-indicator-color),
+      active-hover-indicator-color: var(--active-indicator-color),
+      active-indicator-shape: var(--active-indicator-shape),
+      active-ripple-color: var(--ripple-color),
+      inactive-ripple-color: var(--ripple-color),
+    )
+  );
+
+  .mdc-tab {
+    /**
+    /* need to keep the z-index high so that
+    /* active indicator of next tab does not overlap label
+    */
+    &:not(.mdc-tab--active) {
+      z-index: 2;
+    }
+
+    /**
+    /* keep active indicator vertically center aligned
+    */
+    .mdc-tab-indicator {
+      top: 50%;
+      transform: translateY(-50%);
+      height: var(--active-indicator-height);
+      border-radius: var(--active-indicator-shape);
+    }
+
+    /**
+    /* keep ripple vertically & horizontally center aligned
+    */
+    .mat-ripple,
+    .mdc-tab__ripple::before {
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      height: var(--active-indicator-height);
+      border-radius: var(--active-indicator-shape);
+      left: 50%;
+
+      // reduced width to visually show gap when hovered
+      width: 90%;
+    }
+  }
+}
