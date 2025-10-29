@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { DeviceService } from '../../utils/services/device.service';
 import { cx } from '../../utils/functions/cx';
+import { SimpleStackedListComponent } from "../../free-stacked-lists/simple";
 
 type User = {
   name: string;
@@ -71,15 +72,16 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
     MatIconModule,
     AsyncPipe,
     ContentPlaceholderFullWidthThreeColumnComponent,
-  ],
+    SimpleStackedListComponent
+],
 })
 export class FullWidthThreeColumnComponent {
   readonly cx = cx;
   user: User = {
-    name: 'John Doe',
-    email: 'john@example.com',
+    name: 'Entre',
+    email: 'Ou cadastre',
     imageUrl:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'icon-user.png',
   };
   readonly isLessThanMD$ = inject(DeviceService).isLessThanMD$;
   readonly mainMenu: {
@@ -89,33 +91,33 @@ export class FullWidthThreeColumnComponent {
     isActive?: boolean;
   }[] = [
     {
-      label: 'Dashboard',
+      label: 'Página Inicial',
       id: 'dashboard',
       icon: 'home',
       isActive: true,
     },
     {
-      label: 'Team',
+      label: 'Time',
       id: 'team',
       icon: 'people',
     },
     {
-      label: 'Projects',
+      label: 'Projetos',
       id: 'projects',
       icon: 'folder',
     },
     {
-      label: 'Calendar',
+      label: 'Calendário',
       id: 'calendar',
       icon: 'event',
     },
     {
-      label: 'Documents',
+      label: 'Documentos',
       id: 'documents',
       icon: 'article',
     },
     {
-      label: 'Reports',
+      label: 'Relatórios',
       id: 'reports',
       icon: 'bar_chart',
     },
