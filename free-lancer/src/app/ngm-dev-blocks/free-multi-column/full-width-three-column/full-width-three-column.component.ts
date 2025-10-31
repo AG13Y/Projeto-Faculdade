@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DeviceService } from '../../utils/services/device.service';
 import { cx } from '../../utils/functions/cx';
 import { SimpleStackedListComponent } from "../../free-stacked-lists/simple";
+import { Router} from "@angular/router";
 
 type User = {
   name: string;
@@ -72,10 +73,12 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
     MatIconModule,
     AsyncPipe,
     ContentPlaceholderFullWidthThreeColumnComponent,
-    SimpleStackedListComponent
+    SimpleStackedListComponent,
 ],
 })
 export class FullWidthThreeColumnComponent {
+  private router = inject(Router);
+
   readonly cx = cx;
   user: User = {
     name: 'Entre',
@@ -136,4 +139,8 @@ export class FullWidthThreeColumnComponent {
       id: 'gamma',
     },
   ];
+  irParaLogin(): void {
+    this.router.navigate(['/sign-pag']); 
+  }
+  
 }
