@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-pag',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './sign-pag.html',
   styleUrl: './sign-pag.scss',
 })
