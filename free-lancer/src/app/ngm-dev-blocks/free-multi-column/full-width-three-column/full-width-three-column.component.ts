@@ -3,7 +3,7 @@
 	Update this file using `@ngm-dev/cli update free-multi-column/full-width-three-column`
 */
 
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { DeviceService } from '../../utils/services/device.service';
 import { cx } from '../../utils/functions/cx';
 import { SimpleStackedListComponent } from "../../free-stacked-lists/simple";
 import { Router} from "@angular/router";
+import { AuthService } from '../../../services/auth.service';
 
 type User = {
   name: string;
@@ -78,14 +79,32 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
 })
 export class FullWidthThreeColumnComponent {
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   readonly cx = cx;
-  user: User = {
-    name: 'Entre',
-    email: 'Ou cadastre',
-    imageUrl:
-      'icon-user.png',
-  };
+  readonly isLoggedIn = this.authService.isLoggedIn;
+
+  // --- ESTA É A MUDANÇA ---
+  readonly user = computed(() => {
+    const currentUser = this.authService.currentUser();
+    
+    if (currentUser) {
+      // Usuário está logado
+      return {
+        name: currentUser.nome, // <-- MUDANÇA: de email para nome
+        email: 'Clique para sair',
+        imageUrl: currentUser.fotoUrl || 'icon-user.png', // <-- MUDANÇA: usa a foto do usuário
+      };
+    } else {
+      // Usuário deslogado (estado padrão)
+      return {
+        name: 'Entre',
+        email: 'Ou cadastre',
+        imageUrl: 'icon-user.png',
+      };
+    }
+  });
+  
   readonly isLessThanMD$ = inject(DeviceService).isLessThanMD$;
   readonly mainMenu: {
     label: string;
@@ -139,8 +158,13 @@ export class FullWidthThreeColumnComponent {
       id: 'gamma',
     },
   ];
+  
   irParaLogin(): void {
-    this.router.navigate(['/sign-pag']); 
+    if (this.isLoggedIn()) {
+      this.authService.logout();
+    } else {
+      this.router.navigate(['/sign-pag']); 
+    }
   }
   
 }

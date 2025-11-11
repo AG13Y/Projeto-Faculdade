@@ -4,7 +4,7 @@ import { User, UserWithPassword } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, tap, catchError, throwError } from 'rxjs';
 
-type RegisterData = Pick<User, 'email' | 'nome' | 'tipo'> & { password: string };
+type RegisterData = Pick<User, 'email' | 'nome' | 'tipo' | 'fotoUrl'> & { password: string };
 
 @Injectable({
   providedIn: 'root'
@@ -55,24 +55,23 @@ export class AuthService {
   }
 
   // --- REGISTRO CORRIGIDO ---
-  register(data: RegisterData): Observable<User> {
+ register(data: RegisterData): Observable<User> {
     const uid = `uid_${Math.random().toString(36).substring(2, 9)}`;
 
+    // 2. Criamos o payload da API
     const newUserApiPayload = {
-      ...data,
+      ...data, // email, nome, tipo, password, e agora fotoUrl
       uid: uid,
-      fotoUrl: 'icon-user.png'
+      // Se a fotoUrl não foi enviada (é null), usamos o ícone padrão
+      fotoUrl: data.fotoUrl || 'icon-user.png' //
     };
 
-    // 4. Usamos 'UserWithPassword' para a resposta do POST
     return this.http.post<UserWithPassword>(`${this.apiUrl}/users`, newUserApiPayload).pipe(
       map(createdUser => {
-        // 5. Também limpamos a senha da resposta do POST
         const { password, ...userToStore } = createdUser;
-        return userToStore; // Retorna o usuário limpo
+        return userToStore;
       }),
       tap(userToStore => {
-        // 6. Salvamos o usuário limpo no signal e localStorage
         localStorage.setItem('freezy_user', JSON.stringify(userToStore));
         this.currentUser.set(userToStore);
         this.router.navigateByUrl('/next-login');

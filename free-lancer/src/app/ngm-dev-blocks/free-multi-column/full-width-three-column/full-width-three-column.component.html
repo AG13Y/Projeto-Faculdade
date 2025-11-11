@@ -1,11 +1,4 @@
-<!--
-	Installed from https://ui.angular-material.dev/api/registry/
-	Update this file using `@ngm-dev/cli update free-multi-column/full-width-three-column`
--->
-
-<!-- Ideally, you would use h-[100dvh] with body, and then use h-full with the sidenav-container. -->
 <mat-sidenav-container class="h-[100dvh]">
-  <!-- You can apply fixedInViewport to the mat-sidenav to keep it fixed when scrolling. -->
   <mat-sidenav #drawer class="w-[288px]! border-r border-outline-variant!"
     [attr.role]="(isLessThanMD$ | async) ? 'dialog' : 'navigation'" [mode]="(isLessThanMD$ | async) ? 'over' : 'side'"
     [opened]="(isLessThanMD$ | async) === false">
@@ -48,9 +41,9 @@
       @if ((isLessThanMD$ | async) === false) {
       <mat-action-list class="mt-auto!">
         <button mat-list-item (click)="irParaLogin()">
-          <img [src]="user.imageUrl" alt="User" matListItemAvatar class="object-cover" />
-          <span matListItemTitle>{{ user.name }}</span>
-          <span matListItemLine>{{ user.email }}</span>
+          <img [src]="user().imageUrl" alt="User" matListItemAvatar class="object-cover" />
+          <span matListItemTitle>{{ user().name }}</span>
+          <span matListItemLine>{{ user().email }}</span>
         </button>
       </mat-action-list>
       }
@@ -65,14 +58,13 @@
       <img class="size-16" src="icon-company.png" alt="Your Company" />
       <span class="flex-1"></span>
       <button mat-icon-button class="custom-avatar-button" (click)="irParaLogin()"> 
-        <img [src]="user.imageUrl"
+        <img [src]="user().imageUrl"
           alt="User" 
           class="object-cover rounded-full" />
       </button>
     </mat-toolbar>
     }
 
-    <!-- Add Content Here -->
     <aside class="w-96 hidden lg:block absolute top-0 left-0 h-full border-outline-variant">
       <div class="p-4 md:p-6 h-full">
         <ngm-dev-block-simple-stacked-list></ngm-dev-block-simple-stacked-list>
