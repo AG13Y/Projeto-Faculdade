@@ -1,5 +1,5 @@
 <section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen lg:py-0">
     <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 m-12">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             
@@ -9,26 +9,12 @@
               </h1>
               
               <img 
-                [src]="imagePreview()" 
+                [src]="registerForm.get('fotoUrl')?.value || 'assets/icon-user.png'"
+                (error)="onImageError()"
                 alt="Avatar" 
-                class="w-24 h-24 rounded-full object-cover cursor-pointer mb-2"
-                (click)="fileInput.click()">
-              
-              <label 
-                for="file-upload" 
-                class="text-sm font-medium text-indigo-600 dark:text-indigo-400 cursor-pointer"
-                (click)="fileInput.click()">
-                Escolher foto
-              </label>
-
-              <input 
-                id="file-upload" 
-                type="file" 
-                class="hidden" 
-                accept="image/png, image/jpeg"
-                (change)="onFileSelected($event)"
-                #fileInput>
+                class="w-24 h-24 rounded-full object-cover mb-2 border border-gray-200">
             </div>
+            
             <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
                 
                 <div>
@@ -48,6 +34,11 @@
                 <div>
                   <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seu nome (ou da empresa)</label>
                   <input type="text" name="nome" id="nome" formControlName="nome" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: João da Silva ou Freezy Co.">
+                </div>
+
+                <div>
+                  <label for="fotoUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL da Foto (Opcional)</label>
+                  <input type="text" name="fotoUrl" id="fotoUrl" formControlName="fotoUrl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cole o link de uma imagem pública aqui">
                 </div>
                 
                 <div>

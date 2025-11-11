@@ -10,46 +10,34 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './register-pag.scss',
 })
 export class RegisterPag {
-  private fb = inject(FormBuilder);
+ private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   registerForm: FormGroup;
+  
+  // Nova propriedade para feedback de erro
   registerError: string | null = null;
 
-  // 2. Signal para o preview da imagem. Começa com a imagem padrão.
-  imagePreview = signal<string | ArrayBuffer | null>('icon-user.png'); //
-
   constructor() {
+    // Este é o FormGroup completo com todos os campos
     this.registerForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
       tipo: ['freelancer', [Validators.required]],
+      fotoUrl: [null], // Campo do link da foto
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-      terms: [false, [Validators.requiredTrue]],
-      // 3. Novo FormControl (invisível) para armazenar o DataURL da imagem
-      fotoUrl: [null] 
+      terms: [false, [Validators.requiredTrue]] 
+    }, {
+      validators: this.passwordMatcher
     });
   }
 
-  // 4. Nova função para lidar com a seleção do arquivo
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      
-      const reader = new FileReader();
-      reader.onload = () => {
-        // 'reader.result' contém o DataURL (ex: "data:image/png;base64,...")
-        const result = reader.result;
-        this.imagePreview.set(result); // Atualiza o preview na tela
-        this.registerForm.patchValue({ fotoUrl: result }); // Salva o DataURL no formulário
-      };
-      reader.readAsDataURL(file);
-    }
+  // Função para caso o link da imagem quebre
+  onImageError() {
+    this.registerForm.get('fotoUrl')?.setValue(null);
   }
   
   passwordMatcher(control: AbstractControl): ValidationErrors | null {
-    // ... (lógica do validador não muda)
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
     if (password && confirmPassword && password !== confirmPassword) {
@@ -65,13 +53,16 @@ export class RegisterPag {
     }
     this.registerError = null;
 
-    // 5. O 'registerForm.value' agora contém a 'fotoUrl' (DataURL)
+    // --- CORREÇÃO AQUI ---
+    // Trocamos o try...catch por .subscribe()
     this.authService.register(this.registerForm.value).subscribe({
       next: (user) => {
+        // Sucesso! O 'tap' no serviço já redirecionou.
         console.log('Registro bem-sucedido:', user.nome);
       },
       error: (err) => {
-        this.registerError = 'Ocorreu um erro ao registrar. Tente novamente.';
+        // Erro!
+        this.registerError = 'Ocorreu um erro ao registrar. Verifique os dados e tente novamente.';
         console.error(err);
       }
     });

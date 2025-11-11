@@ -13,8 +13,9 @@ export class SignPag {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   loginForm: FormGroup;
-  // Opcional: para feedback de erro
-  loginError: string | null = null; 
+  
+  // Nova propriedade para feedback de erro
+  loginError: string | null = null;
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -32,14 +33,15 @@ export class SignPag {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    // ATUALIZAÇÃO: Usamos .subscribe() em vez de try...catch
+    // --- CORREÇÃO AQUI ---
+    // Trocamos o try...catch por .subscribe()
     this.authService.login(email, password).subscribe({
       next: (user) => {
         // Sucesso! O 'tap' no serviço já fez o redirecionamento.
         console.log('Login bem-sucedido:', user.nome);
       },
       error: (err) => {
-        // Erro! (Ex: email ou senha inválidos do 'throwError')
+        // Erro! (Ex: "Email ou senha inválidos" vindo do serviço)
         this.loginError = 'Email ou senha inválidos.';
         console.error(err);
       }
