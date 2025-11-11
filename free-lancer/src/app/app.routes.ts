@@ -9,6 +9,8 @@ import { ProjectList } from './components/project-list/project-list';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Calendar } from './components/calendar/calendar';
 import { Documents } from './components/documents/documents';
+import { Team } from './components/team/team';
+import { Reports } from './components/reports/reports';
 
 
 export const routes: Routes = [
@@ -31,6 +33,8 @@ export const routes: Routes = [
         { path: 'projects', component: ProjectList },
         { path: 'calendar', component: Calendar },
         { path: 'documents', component: Documents },
+        { path: 'team', component: Team },
+        { path: 'reports', component: Reports },
       ]
     },
     {path: 'sign-pag', component: SignPag, canActivate: [publicGuard] },

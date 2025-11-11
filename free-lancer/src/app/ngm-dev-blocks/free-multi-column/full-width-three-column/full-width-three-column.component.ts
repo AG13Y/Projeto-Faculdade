@@ -123,6 +123,7 @@ export class FullWidthThreeColumnComponent {
       id: 'team',
       icon: 'people',
       routerLink: './team',
+      isActive: false,
     },
     {
       label: 'Projetos',

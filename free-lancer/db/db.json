@@ -53,7 +53,7 @@
       "password": "123456",
       "nome": "Empresa ABC",
       "tipo": "empresa",
-      "fotoUrl": "icon-user.png",
+      "fotoUrl": "https://www.blogdoprisco.com.br/wp-content/uploads/2021/10/luciano-havan.jpg",
       "bio": "Somos uma empresa de tecnologia focada em inovação.",
       "localizacao": "São Paulo, SP",
       "nomeEmpresa": "Empresa ABC Ltda",
@@ -67,7 +67,7 @@
       "password": "123456",
       "nome": "João da Silva",
       "tipo": "freelancer",
-      "fotoUrl": "icon-user.png",
+      "fotoUrl": "https://img.freepik.com/fotos-premium/jovem-confiante-gordinho-e-acima-do-peso-com-fundo-amarelo_123827-27233.jpg",
       "bio": "Desenvolvedor Angular Sênior com 5 anos de experiência.",
       "localizacao": "Rio de Janeiro, RJ",
       "habilidades": [
