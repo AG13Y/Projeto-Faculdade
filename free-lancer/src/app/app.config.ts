@@ -1,6 +1,8 @@
 import { MAT_ICON_DEFAULT_OPTIONS } from "@angular/material/icon";
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
 import { provideRouter } from '@angular/router';
+
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from "@angular/common/http";
@@ -11,7 +13,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     
     // 2. Adicione o provider aqui
-    provideHttpClient(), 
+    provideHttpClient(),
+    provideNativeDateAdapter(),
+    
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
 
     {
       provide: MAT_ICON_DEFAULT_OPTIONS,

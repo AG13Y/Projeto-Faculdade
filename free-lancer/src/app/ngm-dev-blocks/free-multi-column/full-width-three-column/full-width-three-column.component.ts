@@ -73,7 +73,6 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    ContentPlaceholderFullWidthThreeColumnComponent,
     RouterModule,
 ],
 })

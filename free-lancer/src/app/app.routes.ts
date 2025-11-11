@@ -7,6 +7,8 @@ import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public.guard';
 import { ProjectList } from './components/project-list/project-list';
 import { Dashboard } from './components/dashboard/dashboard';
+import { Calendar } from './components/calendar/calendar';
+import { Documents } from './components/documents/documents';
 
 
 export const routes: Routes = [
@@ -27,6 +29,8 @@ export const routes: Routes = [
         
         // A rota de projetos continua aqui, mas não é mais o padrão
         { path: 'projects', component: ProjectList },
+        { path: 'calendar', component: Calendar },
+        { path: 'documents', component: Documents },
       ]
     },
     {path: 'sign-pag', component: SignPag, canActivate: [publicGuard] },
