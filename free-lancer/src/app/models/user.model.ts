@@ -1,4 +1,21 @@
 export interface User {
-  uid: string;
+  // Dados de Autenticação e Comuns
+  uid: string; // ID único (vindo do Firebase Auth, por exemplo)
   email: string;
+  nome: string;
+  tipo: 'freelancer' | 'empresa'; // Define o papel do usuário
+  
+  // Dados de Perfil
+  fotoUrl?: string; // URL da foto de perfil ou logo
+  bio?: string; // Pequena biografia ou "sobre" da empresa
+  localizacao?: string; // Ex: "São Paulo, SP"
+
+  // Campos Específicos de Freelancer
+  habilidades?: string[]; // Ex: ['Angular', 'TypeScript', 'Design UI/UX']
+  precoHora?: number;
+
+  // Campos Específicos de Empresa
+  nomeEmpresa?: string;
+  cnpj?: string; // Mencionado nos termos
+  website?: string;
 }
