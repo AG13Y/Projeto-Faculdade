@@ -10,14 +10,13 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './sign-pag.scss',
 })
 export class SignPag {
-  // Injetando dependências modernas
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
-
   loginForm: FormGroup;
+  // Opcional: para feedback de erro
+  loginError: string | null = null; 
 
   constructor() {
-    // Criando o formulário reativo
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -26,20 +25,24 @@ export class SignPag {
 
   submitLogin() {
     if (this.loginForm.invalid) {
-      console.error("Formulário inválido");
-      // Você pode adicionar lógica para exibir erros na tela
       return;
     }
+    this.loginError = null; // Limpa erros antigos
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    try {
-      this.authService.login(email, password);
-    } catch (error) {
-      console.error("Erro no login:", error);
-      // Exibir feedback de erro para o usuário (ex: "Email ou senha inválidos")
-    }
+    // ATUALIZAÇÃO: Usamos .subscribe() em vez de try...catch
+    this.authService.login(email, password).subscribe({
+      next: (user) => {
+        // Sucesso! O 'tap' no serviço já fez o redirecionamento.
+        console.log('Login bem-sucedido:', user.nome);
+      },
+      error: (err) => {
+        // Erro! (Ex: email ou senha inválidos do 'throwError')
+        this.loginError = 'Email ou senha inválidos.';
+        console.error(err);
+      }
+    });
   }
-
 }

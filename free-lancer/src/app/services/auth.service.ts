@@ -1,71 +1,93 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
+import { User, UserWithPassword } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map, tap, catchError, throwError } from 'rxjs';
+
+type RegisterData = Pick<User, 'email' | 'nome' | 'tipo'> & { password: string };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private router = inject(Router);
+  // 2. Injetar o HttpClient
+  private http = inject(HttpClient);
+  // 3. Definir a URL base da nossa API fake
+  private apiUrl = 'http://localhost:3000';
 
-  // Signal para armazenar o usuário atual (ou null se não estiver logado)
-  // Usamos 'as User | null' para tipar corretamente o signal
   currentUser = signal<User | null>(null);
-  
-  // Signal computado para saber se o usuário está logado
   isLoggedIn = computed(() => this.currentUser() !== null);
 
   constructor() {
-    // Ao iniciar o serviço, verifica se há um usuário salvo no LocalStorage
     const storedUser = localStorage.getItem('freezy_user');
     if (storedUser) {
       this.currentUser.set(JSON.parse(storedUser));
     }
   }
 
-  // Método de Login
-  login(email: string, password: string) {
-    // --- SIMULAÇÃO DE BACK-END ---
-    // Em um app real, aqui você faria uma chamada HTTP (HttpClient)
-    // Por enquanto, vamos apenas simular um usuário válido
-    if (email && password) {
-      const mockUser: User = {
-        uid: '123-abc-xyz',
-        email: email
-      };
-
-      // Salva no LocalStorage
-      localStorage.setItem('freezy_user', JSON.stringify(mockUser));
-      
-      // Atualiza o signal
-      this.currentUser.set(mockUser);
-      
-      // Redireciona para a página principal
-      this.router.navigateByUrl('/next-login');
-      
-      return true;
-    }
-    return false;
+  // --- LOGIN CORRIGIDO ---
+  login(email: string, password: string): Observable<User> {
+    
+    // 2. Usamos 'UserWithPassword[]' para a resposta do GET
+    return this.http.get<UserWithPassword[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
+      map(users => {
+        if (users.length === 0) {
+          throw new Error('Email ou senha inválidos.');
+        }
+        
+        // 3. AGORA a desestruturação funciona, pois 'users[0]' é 'UserWithPassword'
+        const { password, ...userFound } = users[0];
+        
+        // 'userFound' agora é do tipo 'User' (sem a senha)
+        return userFound; 
+      }),
+      tap(user => {
+        this.currentUser.set(user);
+        localStorage.setItem('freezy_user', JSON.stringify(user));
+        this.router.navigateByUrl('/next-login');
+      }),
+      catchError(error => {
+        console.error(error.message);
+        return throwError(() => error); 
+      })
+    );
   }
 
-  // Método de Logout
+  // --- REGISTRO CORRIGIDO ---
+  register(data: RegisterData): Observable<User> {
+    const uid = `uid_${Math.random().toString(36).substring(2, 9)}`;
+
+    const newUserApiPayload = {
+      ...data,
+      uid: uid,
+      fotoUrl: 'icon-user.png'
+    };
+
+    // 4. Usamos 'UserWithPassword' para a resposta do POST
+    return this.http.post<UserWithPassword>(`${this.apiUrl}/users`, newUserApiPayload).pipe(
+      map(createdUser => {
+        // 5. Também limpamos a senha da resposta do POST
+        const { password, ...userToStore } = createdUser;
+        return userToStore; // Retorna o usuário limpo
+      }),
+      tap(userToStore => {
+        // 6. Salvamos o usuário limpo no signal e localStorage
+        localStorage.setItem('freezy_user', JSON.stringify(userToStore));
+        this.currentUser.set(userToStore);
+        this.router.navigateByUrl('/next-login');
+      }),
+      catchError(error => {
+        console.error("Erro ao registrar na API:", error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // --- LOGOUT (NÃO MUDA) ---
   logout() {
-    // Limpa o LocalStorage
     localStorage.removeItem('freezy_user');
-    
-    // Limpa o signal
     this.currentUser.set(null);
-    
-    // Redireciona para a página de login
     this.router.navigateByUrl('/sign-pag');
-  }
-  
-  // Método de Registro (será usado no register-pag)
-  register(email: string, password: string) {
-    // Lógica de simulação de registro
-    console.log('Registrando usuário:', email);
-    // Em um app real, faria a chamada HTTP para criar o usuário
-    // Por simplicidade, vamos apenas logar e redirecionar
-    this.login(email, password); // Simula login automático após registro
   }
 }

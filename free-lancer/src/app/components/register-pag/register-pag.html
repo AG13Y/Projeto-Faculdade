@@ -9,6 +9,26 @@
                   Crie sua conta
               </h1>
               <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+                  
+                  <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Você é:</label>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <input id="tipo-freelancer" type="radio" value="freelancer" formControlName="tipo" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <label for="tipo-freelancer" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Freelancer</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="tipo-empresa" type="radio" value="empresa" formControlName="tipo" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <label for="tipo-empresa" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Empresa</label>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seu nome (ou da empresa)</label>
+                    <input type="text" name="nome" id="nome" formControlName="nome" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: João da Silva ou Freezy Co.">
+                  </div>
+                  
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Insira seu e-mail</label>
                       <input type="email" name="email" id="email" formControlName="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nome@gmail.com">

@@ -19,3 +19,15 @@ export interface User {
   cnpj?: string; // Mencionado nos termos
   website?: string;
 }
+
+// ===================================================================
+// ADICIONE ESTA NOVA INTERFACE ABAIXO
+// ===================================================================
+/**
+ * Esta interface representa o que o db.json retorna.
+ * NUNCA devemos usar esta interface dentro do nosso app,
+ * apenas no serviço de autenticação para 'limpar' a senha.
+ */
+export interface UserWithPassword extends User {
+  password: string;
+}

@@ -1,0 +1,77 @@
+{
+  "projects": [
+    {
+      "id": "proj_1",
+      "titulo": "Desenvolvimento do App Freezy",
+      "descricao": "Criar o app mobile nativo para a plataforma.",
+      "empresaId": "emp_abc",
+      "freelancerId": null,
+      "status": "Aberto",
+      "orcamento": 15000,
+      "dataPostagem": "2025-11-10T10:00:00.000Z",
+      "habilidadesNecessarias": ["Angular", "Firebase", "TypeScript"]
+    },
+    {
+      "id": "proj_2",
+      "titulo": "Campanha de Marketing Digital",
+      "descricao": "Promover o lançamento nas redes sociais.",
+      "empresaId": "emp_xyz",
+      "freelancerId": null,
+      "status": "Aberto",
+      "orcamento": 3500,
+      "dataPostagem": "2025-11-08T14:30:00.000Z",
+      "habilidadesNecessarias": ["SEO", "Google Ads", "Social Media"]
+    },
+    {
+      "id": "proj_3",
+      "titulo": "Integração de Pagamentos",
+      "descricao": "Implementar Stripe e PayPal na plataforma.",
+      "empresaId": "emp_abc",
+      "freelancerId": "free_123",
+      "status": "Em Andamento",
+      "orcamento": 5000,
+      "dataPostagem": "2025-11-05T09:00:00.000Z",
+      "habilidadesNecessarias": ["API", "Stripe", "Segurança"]
+    }
+  ],
+  "users": [
+    {
+      "uid": "emp_abc",
+      "email": "contato@empresa-abc.com",
+      "password": "123456", 
+      "nome": "Empresa ABC",
+      "tipo": "empresa",
+      "fotoUrl": "icon-user.png",
+      "bio": "Somos uma empresa de tecnologia focada em inovação.",
+      "localizacao": "São Paulo, SP",
+      "nomeEmpresa": "Empresa ABC Ltda",
+      "cnpj": "11.222.333/0001-44",
+      "website": "https.abc.com"
+    },
+    {
+      "uid": "free_123",
+      "email": "joao.dev@gmail.com",
+      "password": "123456",
+      "nome": "João da Silva",
+      "tipo": "freelancer",
+      "fotoUrl": "icon-user.png",
+      "bio": "Desenvolvedor Angular Sênior com 5 anos de experiência.",
+      "localizacao": "Rio de Janeiro, RJ",
+      "habilidades": ["Angular", "TypeScript", "Node.js", "RxJS"],
+      "precoHora": 150
+    }
+  ],
+  "proposals": [
+    {
+      "id": "prop_1",
+      "projetoId": "proj_2",
+      "freelancerId": "free_123",
+      "mensagem": "Olá! Tenho muito interesse neste projeto de marketing. Tenho 3 anos de experiência com SEO e Google Ads e posso ajudar a alavancar seus resultados.",
+      "valorProposto": 3200,
+      "prazoEstimadoDias": 30,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-09T11:00:00.000Z"
+    }
+  ],
+  "reviews": []
+}

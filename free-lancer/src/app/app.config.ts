@@ -3,14 +3,21 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from "@angular/common/http";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideBrowserGlobalErrorListeners(),
+  providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), {
+    provideRouter(routes), 
+    
+    // 2. Adicione o provider aqui
+    provideHttpClient(), 
+
+    {
       provide: MAT_ICON_DEFAULT_OPTIONS,
       useValue: {
         fontSet: 'material-symbols-outlined',
       },
-    }]
+    }
+  ]
 };
