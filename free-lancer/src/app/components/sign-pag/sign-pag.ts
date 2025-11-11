@@ -14,7 +14,6 @@ export class SignPag {
   private authService = inject(AuthService);
   loginForm: FormGroup;
   
-  // Nova propriedade para feedback de erro
   loginError: string | null = null;
 
   constructor() {
@@ -28,21 +27,19 @@ export class SignPag {
     if (this.loginForm.invalid) {
       return;
     }
-    this.loginError = null; // Limpa erros antigos
+    this.loginError = null; 
 
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    // --- CORREÇÃO AQUI ---
-    // Trocamos o try...catch por .subscribe()
     this.authService.login(email, password).subscribe({
       next: (user) => {
-        // Sucesso! O 'tap' no serviço já fez o redirecionamento.
         console.log('Login bem-sucedido:', user.nome);
       },
       error: (err) => {
-        // Erro! (Ex: "Email ou senha inválidos" vindo do serviço)
-        this.loginError = 'Email ou senha inválidos.';
+        // --- CORREÇÃO AQUI ---
+        // Agora pegamos a mensagem de erro específica vinda do serviço
+        this.loginError = err.message; 
         console.error(err);
       }
     });

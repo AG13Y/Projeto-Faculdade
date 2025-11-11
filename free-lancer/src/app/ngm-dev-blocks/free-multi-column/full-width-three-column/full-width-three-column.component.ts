@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DeviceService } from '../../utils/services/device.service';
 import { cx } from '../../utils/functions/cx';
 import { SimpleStackedListComponent } from "../../free-stacked-lists/simple";
-import { Router} from "@angular/router";
+import { Router, RouterModule} from "@angular/router";
 import { AuthService } from '../../../services/auth.service';
 
 type User = {
@@ -74,13 +74,12 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
     MatIconModule,
     AsyncPipe,
     ContentPlaceholderFullWidthThreeColumnComponent,
-    SimpleStackedListComponent,
+    RouterModule,
 ],
 })
 export class FullWidthThreeColumnComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
-
   readonly cx = cx;
   readonly isLoggedIn = this.authService.isLoggedIn;
 
@@ -106,42 +105,50 @@ export class FullWidthThreeColumnComponent {
   });
   
   readonly isLessThanMD$ = inject(DeviceService).isLessThanMD$;
-  readonly mainMenu: {
+ readonly mainMenu: {
     label: string;
     id: string;
     icon: string;
+    routerLink: string;
     isActive?: boolean;
   }[] = [
     {
       label: 'Página Inicial',
       id: 'dashboard',
       icon: 'home',
-      isActive: true,
+      routerLink: './dashboard', 
+      isActive: true, // <-- MUDANÇA AQUI
     },
     {
       label: 'Time',
       id: 'team',
       icon: 'people',
+      routerLink: './team',
     },
     {
       label: 'Projetos',
       id: 'projects',
       icon: 'folder',
+      routerLink: './projects', 
+      isActive: false, // <-- MUDANÇA AQUI
     },
     {
       label: 'Calendário',
       id: 'calendar',
       icon: 'event',
+      routerLink: './calendar',
     },
     {
       label: 'Documentos',
       id: 'documents',
       icon: 'article',
+      routerLink: './documents',
     },
     {
       label: 'Relatórios',
       id: 'reports',
       icon: 'bar_chart',
+      routerLink: './reports',
     },
   ];
   readonly teamMenu = [
@@ -158,7 +165,7 @@ export class FullWidthThreeColumnComponent {
       id: 'gamma',
     },
   ];
-  
+
   irParaLogin(): void {
     if (this.isLoggedIn()) {
       this.authService.logout();

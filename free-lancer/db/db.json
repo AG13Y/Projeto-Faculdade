@@ -9,7 +9,11 @@
       "status": "Aberto",
       "orcamento": 15000,
       "dataPostagem": "2025-11-10T10:00:00.000Z",
-      "habilidadesNecessarias": ["Angular", "Firebase", "TypeScript"]
+      "habilidadesNecessarias": [
+        "Angular",
+        "Firebase",
+        "TypeScript"
+      ]
     },
     {
       "id": "proj_2",
@@ -20,7 +24,11 @@
       "status": "Aberto",
       "orcamento": 3500,
       "dataPostagem": "2025-11-08T14:30:00.000Z",
-      "habilidadesNecessarias": ["SEO", "Google Ads", "Social Media"]
+      "habilidadesNecessarias": [
+        "SEO",
+        "Google Ads",
+        "Social Media"
+      ]
     },
     {
       "id": "proj_3",
@@ -31,14 +39,18 @@
       "status": "Em Andamento",
       "orcamento": 5000,
       "dataPostagem": "2025-11-05T09:00:00.000Z",
-      "habilidadesNecessarias": ["API", "Stripe", "Segurança"]
+      "habilidadesNecessarias": [
+        "API",
+        "Stripe",
+        "Segurança"
+      ]
     }
   ],
   "users": [
     {
       "uid": "emp_abc",
       "email": "contato@empresa-abc.com",
-      "password": "123456", 
+      "password": "123456",
       "nome": "Empresa ABC",
       "tipo": "empresa",
       "fotoUrl": "icon-user.png",
@@ -46,7 +58,8 @@
       "localizacao": "São Paulo, SP",
       "nomeEmpresa": "Empresa ABC Ltda",
       "cnpj": "11.222.333/0001-44",
-      "website": "https.abc.com"
+      "website": "https.abc.com",
+      "id": "8de5"
     },
     {
       "uid": "free_123",
@@ -57,8 +70,25 @@
       "fotoUrl": "icon-user.png",
       "bio": "Desenvolvedor Angular Sênior com 5 anos de experiência.",
       "localizacao": "Rio de Janeiro, RJ",
-      "habilidades": ["Angular", "TypeScript", "Node.js", "RxJS"],
-      "precoHora": 150
+      "habilidades": [
+        "Angular",
+        "TypeScript",
+        "Node.js",
+        "RxJS"
+      ],
+      "precoHora": 150,
+      "id": "dc1c"
+    },
+    {
+      "id": "1d84",
+      "nome": "Toninho o Brabo",
+      "tipo": "freelancer",
+      "fotoUrl": "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_802,h_447/https://hqscomcafe.com.br/wp-content/uploads/2023/10/Toninho-Tornado-Apelidos.jpg",
+      "email": "toninho@gmail.com",
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "terms": true,
+      "uid": "uid_2q6718u"
     }
   ],
   "proposals": [

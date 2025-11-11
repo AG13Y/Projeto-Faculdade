@@ -14,14 +14,11 @@
       </mat-toolbar>
       <mat-nav-list>
         @for (menuItem of mainMenu; track menuItem.id) {
-        <a mat-list-item [activated]="menuItem.isActive ?? false">
-          <mat-icon matListItemIcon [class]="
-                cx(
-                  menuItem.isActive
-                    ? 'icon-filled text-primary!'
-                    : 'text-gray-400! dark:text-gray-500!'
-                )
-              ">{{ menuItem.icon }}</mat-icon>
+        <a mat-list-item 
+           [routerLink]="menuItem.routerLink" 
+           routerLinkActive="mat-list-item-active"
+           [routerLinkActiveOptions]="{exact: true}">
+          <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
           {{ menuItem.label }}
         </a>
         }
@@ -55,7 +52,7 @@
       <button type="button" aria-label="Toggle sidenav" matIconButton (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <img class="size-16" src="icon-company.png" alt="Your Company" />
+      <img class="size-16" src="assets/icon-company.png" alt="Your Company" />
       <span class="flex-1"></span>
       <button mat-icon-button class="custom-avatar-button" (click)="irParaLogin()"> 
         <img [src]="user().imageUrl"
@@ -65,15 +62,10 @@
     </mat-toolbar>
     }
 
-    <aside class="w-96 hidden lg:block absolute top-0 left-0 h-full border-outline-variant">
-      <div class="p-4 md:p-6 h-full">
-        <ngm-dev-block-simple-stacked-list></ngm-dev-block-simple-stacked-list>
-      </div>
-    </aside>
-    <main class="lg:pl-96 h-[calc(100dvh-64px)] md:h-full relative">
-      <div class="absolute top-0 left-0 right-0 lg:left-96 lg:right-0 h-full">
+    <main class="h-[calc(100dvh-64px)] md:h-full relative">
+      <div class="absolute top-0 left-0 right-0 lg:right-0 h-full">
         <div class="p-4 md:p-6 h-full">
-          <ngm-dev-block-content-placeholder-full-width-three-column />
+          <router-outlet />
         </div>
       </div>
     </main>

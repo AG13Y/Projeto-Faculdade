@@ -5,21 +5,31 @@ import { RegisterPag } from './components/register-pag/register-pag';
 import { Termos } from './components/termos/termos';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public.guard';
+import { ProjectList } from './components/project-list/project-list';
+import { Dashboard } from './components/dashboard/dashboard';
 
 
 export const routes: Routes = [
     {path: '', redirectTo: 'sign-pag', pathMatch: 'full'},
     
-    // 2. Adicionamos o 'canActivate: [authGuard]' à rota protegida
+    // 2. ATUALIZAR a rota 'next-login' para ter rotas-filhas
     {
       path: 'next-login', 
       component: NextLogin,
-      canActivate: [authGuard] // <-- A MÁGICA ACONTECE AQUI
+      canActivate: [authGuard],
+      // 3. Adicionar o array 'children'
+      children: [
+        // 2. CORREÇÃO: Mudar o redirect de 'projects' para 'dashboard'
+        { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+        
+        // 3. Adicionar a nova rota
+        { path: 'dashboard', component: Dashboard },
+        
+        // A rota de projetos continua aqui, mas não é mais o padrão
+        { path: 'projects', component: ProjectList },
+      ]
     },
     {path: 'sign-pag', component: SignPag, canActivate: [publicGuard] },
     {path: 'register-pag', component: RegisterPag, canActivate: [publicGuard] },
-    
-    // Rotas públicas
-    
-    {path: 'termos', component: Termos}, // 'Termos' pode ser sempre acessível
+    {path: 'termos', component: Termos},
 ];

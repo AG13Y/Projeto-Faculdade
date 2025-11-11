@@ -27,6 +27,12 @@
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                       Não tem uma conta? <a routerLink="/register-pag" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Registre aqui!</a>
                   </p>
+
+                  @if (loginError) {
+                    <div class="p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-700 dark:text-red-300" role="alert">
+                      {{ loginError }}
+                    </div>
+                  }
               </form>
           </div>
       </div>

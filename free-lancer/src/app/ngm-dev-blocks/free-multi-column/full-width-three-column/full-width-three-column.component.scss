@@ -17,5 +17,13 @@
     padding: 0;
 }
 
+.mat-mdc-list-item.mat-list-item-active {
+  color: var(--mat-sys-primary) !important;
+
+  .mat-icon {
+    color: var(--mat-sys-primary) !important;
+    font-variation-settings: 'FILL' 1; // Faz o ícone ficar preenchido
+  }
+}
 
 

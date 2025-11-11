@@ -29,25 +29,34 @@ export class AuthService {
   // --- LOGIN CORRIGIDO ---
   login(email: string, password: string): Observable<User> {
     
-    // 2. Usamos 'UserWithPassword[]' para a resposta do GET
-    return this.http.get<UserWithPassword[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
+    // 1. Buscamos APENAS pelo email
+    return this.http.get<UserWithPassword[]>(`${this.apiUrl}/users?email=${email}`).pipe(
       map(users => {
+        // 2. Verificamos se o email foi encontrado
         if (users.length === 0) {
-          throw new Error('Email ou senha inválidos.');
+          throw new Error('Email não encontrado.'); // Erro específico
+        }
+
+        const userWithPassword = users[0];
+
+        // 3. Verificamos se a senha bate
+        if (userWithPassword.password !== password) {
+          throw new Error('Senha incorreta.'); // Erro específico
         }
         
-        // 3. AGORA a desestruturação funciona, pois 'users[0]' é 'UserWithPassword'
-        const { password, ...userFound } = users[0];
+        // 4. Se tudo deu certo, removemos a senha do objeto
+        const { password: pw, ...userFound } = userWithPassword;
         
-        // 'userFound' agora é do tipo 'User' (sem a senha)
         return userFound; 
       }),
       tap(user => {
+        // 5. Sucesso! Salva no signal, localStorage e redireciona
         this.currentUser.set(user);
         localStorage.setItem('freezy_user', JSON.stringify(user));
         this.router.navigateByUrl('/next-login');
       }),
       catchError(error => {
+        // 6. Propaga o erro (seja "Email não encontrado" ou "Senha incorreta")
         console.error(error.message);
         return throwError(() => error); 
       })
