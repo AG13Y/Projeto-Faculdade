@@ -99,9 +99,7 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
   }
 
   // 5. Nova função para alterar o status
-  changeProjectStatus(project: Project, newStatus: Project['status'], event: MouseEvent, trigger: MatMenuTrigger): void {
-    
-    event.stopPropagation(); 
+  changeProjectStatus(project: Project, newStatus: Project['status'], event: MouseEvent,): void { 
 
     if (project.status === newStatus) {
       return;
@@ -138,10 +136,9 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
           }
         });
       }
-      // Se for falso, não faz nada.
+      
+      event.stopPropagation();
     });
-
-    trigger.closeMenu();
   }
 
   /**

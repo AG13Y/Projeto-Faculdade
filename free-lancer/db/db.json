@@ -29,7 +29,8 @@
         "API",
         "Stripe",
         "Segurança"
-      ]
+      ],
+      "prazoFinal": "2025-12-10T03:00:00.000Z"
     },
     {
       "id": "f515",
@@ -40,10 +41,10 @@
         "Angular"
       ],
       "empresaId": "uid_2q6718u",
-      "status": "Concluído",
+      "status": "Cancelado",
       "dataPostagem": "2025-11-12T11:47:01.815Z",
       "freelancerId": null,
-      "prazoFinal": "2025-11-21T03:00:00.000Z"
+      "prazoFinal": "2025-11-12T03:00:00.000Z"
     }
   ],
   "users": [
