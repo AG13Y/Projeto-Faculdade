@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Project } from '../../models/project.model';
 import { AuthService } from '../../services/auth.service';
 import { ProjectService } from '../../services/project.service';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-project-form',
@@ -19,7 +20,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule
   ],
   templateUrl: './project-form.html',
   styleUrl: './project-form.scss',
@@ -33,6 +35,19 @@ export class ProjectForm implements OnInit {
 
   public projectForm!: FormGroup;
   private currentUser = this.authService.currentUser();
+  public minDate = new Date();
+
+  public isEditMode = false;
+  public modalTitle = 'Criar Novo Projeto';
+  private existingProjectId: string | null = null;
+
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: Project | null) {
+    if (data) {
+      this.isEditMode = true;
+      this.modalTitle = 'Editar Projeto';
+      this.existingProjectId = data.id;
+    }
+  }
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
@@ -40,8 +55,20 @@ export class ProjectForm implements OnInit {
       descricao: ['', [Validators.required, Validators.minLength(20)]],
       orcamento: [null, [Validators.required, Validators.min(1)]],
       // Vamos pegar as habilidades como um texto separado por vírgula
-      habilidades: ['', Validators.required] 
+      habilidades: ['', Validators.required],
+      prazoFinal: [null] 
     });
+    if (this.isEditMode && this.data) {
+      this.projectForm.patchValue({
+        titulo: this.data.titulo,
+        descricao: this.data.descricao,
+        orcamento: this.data.orcamento,
+        // Converte o array ["Angular", "JS"] de volta para a string "Angular, JS"
+        habilidades: (this.data.habilidadesNecessarias || []).join(', '),
+        // Converte a string de data (do JSON) para um objeto Date
+        prazoFinal: this.data.prazoFinal ? new Date(this.data.prazoFinal) : null
+      });
+    }
   }
 
   onSubmit(): void {
@@ -57,32 +84,52 @@ export class ProjectForm implements OnInit {
 
     const formValues = this.projectForm.value;
 
-    // Montamos o objeto completo do novo projeto
-    const newProjectData: Omit<Project, 'id'> = {
+    // 6. Montar o payload de dados (comum para ambos os modos)
+    // Usamos 'Partial<Project>' pois 'update' só precisa de alguns campos
+    const projectPayload: Partial<Project> = {
       titulo: formValues.titulo,
       descricao: formValues.descricao,
       orcamento: Number(formValues.orcamento),
-      // Converte a string "Angular, TypeScript" em ["Angular", "TypeScript"]
       habilidadesNecessarias: formValues.habilidades.split(',').map((h: string) => h.trim()),
-      empresaId: this.currentUser.uid, // Pega o ID do usuário logado
-      status: 'Aberto', // Status padrão
-      dataPostagem: new Date(),
-      freelancerId: null, // Nenhum freelancer atribuído ainda
+      prazoFinal: formValues.prazoFinal
     };
 
-    // Chamamos o serviço
-    this.projectService.addProject(newProjectData).subscribe({
-      next: (createdProject) => {
-        // Sucesso!
-        this.snackBar.open('Projeto criado com sucesso!', 'OK', { duration: 3000 });
-        // Fecha o modal e envia o novo projeto de volta para a lista
-        this.dialogRef.close(createdProject); 
-      },
-      error: (err) => {
-        console.error('Erro ao criar projeto:', err);
-        this.snackBar.open('Erro ao criar projeto. Tente novamente.', 'Fechar', { duration: 3000 });
-      }
-    });
+
+    // 7. Decidir qual método do serviço chamar
+    if (this.isEditMode && this.existingProjectId) {
+      // --- MODO UPDATE ---
+      this.projectService.updateProject(this.existingProjectId, projectPayload).subscribe({
+        next: (updatedProject) => {
+          this.snackBar.open('Projeto atualizado com sucesso!', 'OK', { duration: 3000 });
+          // Fecha o modal e envia o projeto ATUALIZADO de volta
+          this.dialogRef.close(updatedProject); 
+        },
+        error: (err) => {
+          console.error('Erro ao atualizar projeto:', err);
+          this.snackBar.open('Erro ao atualizar projeto.', 'Fechar', { duration: 3000 });
+        }
+      });
+    } else {
+      // --- MODO CREATE ---
+      const newProjectData: Omit<Project, 'id'> = {
+        ...projectPayload,
+        empresaId: this.currentUser.uid,
+        status: 'Aberto',
+        dataPostagem: new Date(),
+        freelancerId: null,
+      } as Omit<Project, 'id'>; // Cast para garantir a tipagem
+
+      this.projectService.addProject(newProjectData).subscribe({
+        next: (createdProject) => {
+          this.snackBar.open('Projeto criado com sucesso!', 'OK', { duration: 3000 });
+          this.dialogRef.close(createdProject); 
+        },
+        error: (err) => {
+          console.error('Erro ao criar projeto:', err);
+          this.snackBar.open('Erro ao criar projeto. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
+      });
+    }
   }
 
   close(): void {

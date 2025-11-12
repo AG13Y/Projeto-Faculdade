@@ -1,0 +1,15 @@
+<h2 mat-dialog-title class="dark:text-white">{{ data.title }}</h2>
+
+<mat-dialog-content>
+  <p class="text-gray-700 dark:text-gray-300">{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  
+  <button mat-button
+          (click)="onConfirm()"
+          class="rounded-md px-3 py-1.5 text-sm font-semibold shadow-sm bg-indigo-600 hover:bg-indigo-700 text-white">
+    {{ data.confirmButtonText || 'Confirmar' }}
+  </button>
+</mat-dialog-actions>

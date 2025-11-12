@@ -3,32 +3,18 @@
     {
       "id": "proj_1",
       "titulo": "Desenvolvimento do App Freezy",
-      "descricao": "Criar o app mobile nativo para a plataforma.",
+      "descricao": "Na verdade o Orçamento está sendo a minha sanidade mental",
       "empresaId": "emp_abc",
       "freelancerId": null,
-      "status": "Aberto",
+      "status": "Em Andamento",
       "orcamento": 15000,
       "dataPostagem": "2025-11-10T10:00:00.000Z",
       "habilidadesNecessarias": [
         "Angular",
         "Firebase",
         "TypeScript"
-      ]
-    },
-    {
-      "id": "proj_2",
-      "titulo": "Campanha de Marketing Digital",
-      "descricao": "Promover o lançamento nas redes sociais.",
-      "empresaId": "emp_xyz",
-      "freelancerId": null,
-      "status": "Aberto",
-      "orcamento": 3500,
-      "dataPostagem": "2025-11-08T14:30:00.000Z",
-      "habilidadesNecessarias": [
-        "SEO",
-        "Google Ads",
-        "Social Media"
-      ]
+      ],
+      "prazoFinal": "2025-11-17T03:00:00.000Z"
     },
     {
       "id": "proj_3",
@@ -36,7 +22,7 @@
       "descricao": "Implementar Stripe e PayPal na plataforma.",
       "empresaId": "emp_abc",
       "freelancerId": "free_123",
-      "status": "Em Andamento",
+      "status": "Aberto",
       "orcamento": 5000,
       "dataPostagem": "2025-11-05T09:00:00.000Z",
       "habilidadesNecessarias": [
@@ -44,6 +30,20 @@
         "Stripe",
         "Segurança"
       ]
+    },
+    {
+      "id": "f515",
+      "titulo": "Criar app de agua",
+      "descricao": "construir um app de agua afsddsa",
+      "orcamento": 5000,
+      "habilidadesNecessarias": [
+        "Angular"
+      ],
+      "empresaId": "uid_2q6718u",
+      "status": "Concluído",
+      "dataPostagem": "2025-11-12T11:47:01.815Z",
+      "freelancerId": null,
+      "prazoFinal": "2025-11-21T03:00:00.000Z"
     }
   ],
   "users": [

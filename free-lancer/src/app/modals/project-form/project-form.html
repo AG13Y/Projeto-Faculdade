@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="dark:text-white">Criar Novo Projeto</h2>
+<h2 mat-dialog-title class="dark:text-white">{{ modalTitle }}</h2>
 
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="space-y-4">
@@ -19,13 +19,25 @@
       }
     </mat-form-field>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <mat-form-field class="w-full">
         <mat-label>Orçamento (R$)</mat-label>
         <input matInput formControlName="orcamento" type="number" placeholder="Ex: 5000">
         @if (projectForm.get('orcamento')?.hasError('required')) {
           <mat-error>O orçamento é obrigatório.</mat-error>
         }
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Prazo Final (Opcional)</mat-label>
+        <input matInput 
+               formControlName="prazoFinal" 
+               [matDatepicker]="picker" 
+               [min]="minDate"
+               placeholder="dd/mm/aaaa">
+        <mat-hint>Selecione uma data</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="w-full">
