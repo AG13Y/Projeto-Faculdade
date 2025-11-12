@@ -1,0 +1,46 @@
+<h2 mat-dialog-title class="dark:text-white">Criar Novo Projeto</h2>
+
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="space-y-4">
+    
+    <mat-form-field class="w-full">
+      <mat-label>Título do Projeto</mat-label>
+      <input matInput formControlName="titulo" placeholder="Ex: Criar novo app de e-commerce">
+      @if (projectForm.get('titulo')?.hasError('required')) {
+        <mat-error>O título é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Descrição Completa</mat-label>
+      <textarea matInput formControlName="descricao" rows="5" placeholder="Descreva o escopo, entregáveis e requisitos..."></textarea>
+      @if (projectForm.get('descricao')?.hasError('required')) {
+        <mat-error>A descrição é obrigatória.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="grid grid-cols-2 gap-4">
+      <mat-form-field class="w-full">
+        <mat-label>Orçamento (R$)</mat-label>
+        <input matInput formControlName="orcamento" type="number" placeholder="Ex: 5000">
+        @if (projectForm.get('orcamento')?.hasError('required')) {
+          <mat-error>O orçamento é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Habilidades</mat-label>
+        <input matInput formControlName="habilidades" placeholder="Ex: Angular, TypeScript, Node.js">
+        <mat-hint>Separe as habilidades por vírgula.</mat-hint>
+      </mat-form-field>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="pt-4">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="projectForm.invalid">
+      Salvar Projeto
+    </button>
+  </mat-dialog-actions>
+</form>
