@@ -65,14 +65,14 @@ export class AuthService {
 
   // --- REGISTRO CORRIGIDO ---
  register(data: RegisterData): Observable<User> {
-    const newId = `uid_${Math.random().toString(36).substring(2, 9)}`;
+    const uid = `uid_${Math.random().toString(36).substring(2, 9)}`;
 
     // 2. Criamos o payload da API
     const newUserApiPayload = {
-      ...data,
-      // 3. MUDANÇA AQUI
-      id: newId, 
-      fotoUrl: data.fotoUrl || 'assets/icon-user.png'
+      ...data, // email, nome, tipo, password, e agora fotoUrl
+      uid: uid,
+      // Se a fotoUrl não foi enviada (é null), usamos o ícone padrão
+      fotoUrl: data.fotoUrl || 'icon-user.png' //
     };
 
     return this.http.post<UserWithPassword>(`${this.apiUrl}/users`, newUserApiPayload).pipe(

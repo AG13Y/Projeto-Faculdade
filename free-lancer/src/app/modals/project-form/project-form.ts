@@ -113,7 +113,7 @@ export class ProjectForm implements OnInit {
       // --- MODO CREATE ---
       const newProjectData: Omit<Project, 'id'> = {
         ...projectPayload,
-        empresaId: this.currentUser.uid,
+        empresaId: this.currentUser.id,
         status: 'Aberto',
         dataPostagem: new Date(),
         freelancerId: null,

@@ -25,6 +25,7 @@ import { UserService } from '../../services/user.service';
   styleUrl: './profile-form.scss',
 })
 export class ProfileForm {
+  
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private authService = inject(AuthService);
@@ -33,7 +34,7 @@ export class ProfileForm {
 
   public profileForm!: FormGroup;
   // Pegamos o usuário logado. O '!' garante que ele existe (o modal só abre se logado)
-  public user = this.authService.currentUser()!; 
+  public user = this.authService.currentUser()!;
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -68,7 +69,7 @@ export class ProfileForm {
 
     // 1. CORREÇÃO FINAL AQUI:
     // Trocamos 'this.user.uid' por 'this.user.id'
-    this.userService.updateUser(this.user.uid!, dataToUpdate).subscribe({
+    this.userService.updateUser(this.user.id!, dataToUpdate).subscribe({
       next: (updatedUser) => {
         // Esta lógica de sucesso está correta
         this.authService.updateCurrentUser(updatedUser);

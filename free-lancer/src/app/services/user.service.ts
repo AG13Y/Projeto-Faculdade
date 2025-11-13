@@ -27,10 +27,9 @@ export class UserService {
     );
   }
   
-  updateUser(uid: string, data: Partial<User>): Observable<User> {
-    // Usamos PATCH para atualizar apenas os campos enviados
-    // A API fake (json-server) retorna o objeto completo atualizado
-    return this.http.patch<User>(`${this.apiUrl}/${uid}`, data);
+  updateUser(id: string | number, data: Partial<User>): Observable<User> {
+    // CORREÇÃO AQUI: this->apiUrl -> this.apiUrl
+    return this.http.patch<User>(`${this.apiUrl}/${id}`, data);
   }
   // (No futuro, podemos adicionar 'getUserById(id: string)' aqui)
 }

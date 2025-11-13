@@ -87,7 +87,17 @@
       "password": "12345678",
       "confirmPassword": "12345678",
       "terms": true,
-      "uid": "uid_2q6718u"
+      "uid": "uid_2q6718u",
+      "bio": "Ele faz tudo, aprendeu tudo na China e é o Brabo!",
+      "localizacao": "São Paulo",
+      "habilidades": [
+        "Manter a careca",
+        "Faz tudo"
+      ],
+      "precoHora": 100,
+      "nomeEmpresa": "",
+      "cnpj": "",
+      "website": ""
     },
     {
       "id": "b232",
@@ -99,6 +109,26 @@
       "confirmPassword": "Gio@260506",
       "terms": true,
       "uid": "uid_8vbtpew"
+    },
+    {
+      "id": "d45f",
+      "nome": "Dollynho",
+      "tipo": "empresa",
+      "fotoUrl": "https://th.bing.com/th/id/R.d34ae9c971238c909d62e62489dbe205?rik=KURz%2fWDdEEYoNA&riu=http%3a%2f%2fgartic.com.br%2fimgs%2fmural%2fso%2fsou_seu_dollynho%2favatar.png&ehk=Ug%2fdbo8AGrnxlbYJhLeU7J3IaNTXZe%2byWxbpzCTyAw8%3d&risl=&pid=ImgRaw&r=0",
+      "email": "Dolly@gmail.com",
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "terms": true,
+      "uid": "uid_ck7sui2",
+      "bio": "",
+      "localizacao": "Brazil",
+      "habilidades": [
+        ""
+      ],
+      "precoHora": null,
+      "nomeEmpresa": "",
+      "cnpj": "",
+      "website": ""
     }
   ],
   "proposals": [
