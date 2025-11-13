@@ -25,7 +25,7 @@
         "Angular"
       ],
       "empresaId": "uid_2q6718u",
-      "status": "Em Andamento",
+      "status": "Aberto",
       "dataPostagem": "2025-11-12T11:47:01.815Z",
       "freelancerId": null,
       "prazoFinal": "2025-11-12T03:00:00.000Z"
@@ -42,6 +42,20 @@
       "empresaId": "uid_2q6718u",
       "status": "Aberto",
       "dataPostagem": "2025-11-12T22:50:55.409Z",
+      "freelancerId": null
+    },
+    {
+      "id": "5234",
+      "titulo": "Dolly revoluçãooo",
+      "descricao": "314234134545243525425454",
+      "orcamento": 5000,
+      "habilidadesNecessarias": [
+        "Angular"
+      ],
+      "prazoFinal": "2025-11-20T03:00:00.000Z",
+      "empresaId": "d45f",
+      "status": "Aberto",
+      "dataPostagem": "2025-11-13T15:00:59.569Z",
       "freelancerId": null
     }
   ],
@@ -141,6 +155,26 @@
       "prazoEstimadoDias": 30,
       "status": "Pendente",
       "dataEnvio": "2025-11-09T11:00:00.000Z"
+    },
+    {
+      "id": "9fc5",
+      "projetoId": "5234",
+      "freelancerId": "1d84",
+      "mensagem": "Sou o Brabo e sei fazer as coisas certas",
+      "valorProposto": 4500,
+      "prazoEstimadoDias": 15,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-13T15:20:54.565Z"
+    },
+    {
+      "id": "0e46",
+      "projetoId": "5234",
+      "freelancerId": "1d84",
+      "mensagem": "34213432452345422345543",
+      "valorProposto": 5000,
+      "prazoEstimadoDias": 30,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-13T17:25:53.282Z"
     }
   ],
   "reviews": []

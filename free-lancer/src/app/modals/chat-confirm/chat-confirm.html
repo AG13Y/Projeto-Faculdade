@@ -1,0 +1,27 @@
+<div class="flex justify-between items-start">
+  <h2 mat-dialog-title class="dark:text-white pb-0">
+    Proposta Aceita!
+  </h2>
+  <button mat-icon-button (click)="close()" class="mt-2 mr-2">
+    <mat-icon class="dark:text-white">close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="text-center p-4">
+    <mat-icon class="!w-20 !h-20 text-green-500">check_circle</mat-icon>
+    <p class="text-lg text-gray-700 dark:text-gray-300 mt-4">
+      Você aceitou a proposta de
+      <strong class="text-gray-900 dark:text-white">{{ freelancer.nome }}</strong>.
+      O status do projeto foi atualizado para "Em Andamento".
+    </p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="border-t border-gray-200 dark:border-gray-700 pt-4">
+  <button mat-button (click)="close()">Fechar</button>
+  <button mat-flat-button color="primary" (click)="startChat()">
+    <mat-icon>chat</mat-icon>
+    Iniciar Chat
+  </button>
+</mat-dialog-actions>

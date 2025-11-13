@@ -2,17 +2,20 @@
   <h3 class="text-2xl font-semibold leading-6 text-gray-900 dark:text-white">
     Projetos Abertos
   </h3>
+  @if (isEmpresa()) {
   <div class="mt-3 sm:ml-4 sm:mt-0">
     <button (click)="openCreateModal()" type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
       Criar novo projeto
     </button>
   </div>
+  }
 </div>
 
 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
   @for (project of projects(); track project.id) {
     <div class="flex flex-col justify-between divide-y divide-gray-200 dark:divide-gray-700 rounded-lg bg-white dark:bg-gray-800 shadow-md">
       
+      @if (currentUser()?.id === project.empresaId) {
       <div class="w-full flex justify-between">
       <button mat-icon-button 
                 (click)="deleteProject(project, $event)"
@@ -30,8 +33,8 @@
                   >
             <mat-icon>edit</mat-icon>
           </button>
-
       </div>
+      }
         
       <div class="p-6">
         <div class="flex items-center justify-between">
@@ -39,29 +42,37 @@
             {{ project.titulo }}
           </p>
           <div>
-            <button 
-              type="button"
-              [matMenuTriggerFor]="statusMenu" 
-              (click)="$event.stopPropagation()"
-              [ngClass]="getStatusClass(project.status)"
-              class="rounded-md whitespace-nowrap px-2 py-1 text-xs font-medium ring-1 ring-inset cursor-pointer inline-flex items-center">
-              {{ project.status }}
-              <mat-icon class="text-xs w-4 h-4 ml-1">expand_more</mat-icon>
-            </button>
-
-            <mat-menu #statusMenu="matMenu">
-              @for (status of projectStatusOptions; track status) {
-                <button mat-menu-item (click)="changeProjectStatus(project, status, $event)">
-                  @if (project.status === status) {
-                    <mat-icon class="text-xs w-4 h-4 mr-2">check</mat-icon>
-                  } @else {
-                    <span class="w-4 h-4 mr-2"></span> }
-                  <span>{{ status }}</span>
-                </button>
-              }
-            </mat-menu>
+            @if (currentUser()?.id === project.empresaId) {
+              <button 
+                type="button"
+                [matMenuTriggerFor]="statusMenu" 
+                (click)="$event.stopPropagation()"
+                [ngClass]="getStatusClass(project.status)"
+                class="rounded-md whitespace-nowrap px-2 py-1 text-xs font-medium ring-1 ring-inset cursor-pointer inline-flex items-center">
+                {{ project.status }}
+                <mat-icon class="text-xs w-4 h-4 ml-1">expand_more</mat-icon>
+              </button>
+              <mat-menu #statusMenu="matMenu">
+                @for (status of projectStatusOptions; track status) {
+                  <button mat-menu-item (click)="changeProjectStatus(project, status, $event)">
+                    @if (project.status === status) {
+                      <mat-icon class_alias="text-xs w-4 h-4 mr-2">check</mat-icon>
+                    } @else {
+                      <span class="w-4 h-4 mr-2"></span> }
+                    <span>{{ status }}</span>
+                  </button>
+                }
+              </mat-menu>
+            }
+          @if (currentUser()?.id !== project.empresaId) {
+              <span [ngClass]="getStatusClass(project.status)"
+                    class="rounded-md whitespace-nowrap px-2 py-1 text-xs font-medium ring-1 ring-inset">
+                {{ project.status }}
+              </span>
+            }
           </div>
         </div>
+        
         
         
         <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
@@ -93,13 +104,27 @@
           </div>
         </div>
 
-        <button 
-          (click)="openProjectDetails(project)" 
-          class="w-full flex justify-center rounded-md bg-white dark:bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600">
-          Ver detalhes
-        </button>
+        
+          <button (click)="openProjectDetails(project)" class="w-full flex justify-center rounded-md bg-white dark:bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 mb-4">
+            Ver detalhes
+          </button>
+        
+        @if (isFreelancer()) {
+          <button class="w-full flex justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+          (click)="openProposalModal(project, $event)">
+            Candidatar-se
+          </button>
+        }
+        @if (currentUser()?.id === project.empresaId) {
+          <button (click)="openProposalList(project, $event)" class="w-full flex justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500">
+            Ver Propostas
+          </button>
+        }
       </div>
     </div>
   } @empty {
-    }
+    <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center text-gray-500 dark:text-gray-400 py-10">
+      Nenhum projeto encontrado.
+    </div>
+  }
 </div>

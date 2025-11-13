@@ -1,0 +1,43 @@
+<h2 mat-dialog-title class="dark:text-white">
+  Enviar Proposta para: 
+  <span class="text-indigo-600 dark:text-indigo-400">{{ project.titulo }}</span>
+</h2>
+
+<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="space-y-4">
+    
+    <div class="grid grid-cols-2 gap-4">
+      <mat-form-field class="w-full">
+        <mat-label>Seu Valor (R$)</mat-label>
+        <input matInput formControlName="valorProposto" type="number" placeholder="Ex: 4500">
+        @if (proposalForm.get('valorProposto')?.hasError('required')) {
+          <mat-error>O valor é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Prazo Estimado (em dias)</mat-label>
+        <input matInput formControlName="prazoEstimadoDias" type="number" placeholder="Ex: 30">
+        @if (proposalForm.get('prazoEstimadoDias')?.hasError('required')) {
+          <mat-error>O prazo é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="w-full">
+      <mat-label>Sua Mensagem</mat-label>
+      <textarea matInput formControlName="mensagem" rows="6" placeholder="Apresente-se e explique por que você é a pessoa certa para este projeto..."></textarea>
+      @if (proposalForm.get('mensagem')?.hasError('required')) {
+        <mat-error>A mensagem é obrigatória.</mat-error>
+      }
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="pt-4">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="proposalForm.invalid">
+      Enviar Proposta
+    </button>
+  </mat-dialog-actions>
+</form>

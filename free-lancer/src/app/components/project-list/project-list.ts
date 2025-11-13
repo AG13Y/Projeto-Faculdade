@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
@@ -12,6 +12,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteProject } from '../../modals/delete-project/delete-project';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { ConfirmStatus } from '../../modals/confirm-status/confirm-status';
+import { AuthService } from '../../services/auth.service';
+import { ProposalForm } from '../../modals/proposal-form/proposal-form';
+import { ProposalList } from '../../modals/proposal-list/proposal-list';
+import { ChatConfirm } from '../../modals/chat-confirm/chat-confirm';
 
 
 @Component({
@@ -32,10 +36,15 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
   private dialog = inject(MatDialog);
 
   private snackBar = inject(MatSnackBar);
+  private authService = inject(AuthService);
 
   // 6. Esta é a ÚNICA "fonte da verdade". É um signal gravável.
   public projects = signal<Project[]>([]);
   public projectStatusOptions: Project['status'][] = ['Aberto', 'Em Andamento', 'Concluído', 'Cancelado'];
+
+  public currentUser = this.authService.currentUser;
+  public isEmpresa = computed(() => this.currentUser()?.tipo === 'empresa');
+  public isFreelancer = computed(() => this.currentUser()?.tipo === 'freelancer');
   
   // 7. REMOVER a linha 'public projects = toSignal(...)'
 
@@ -187,6 +196,53 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
         this.projects.update(currentProjects => 
           currentProjects.map(p => p.id === result.id ? result : p)
         );
+      }
+    });
+  }
+
+  openProposalModal(project: Project, event: MouseEvent): void {
+    event.stopPropagation(); // Impede que o clique abra "Ver detalhes"
+
+    const dialogRef = this.dialog.open(ProposalForm, {
+      width: '700px',
+      maxWidth: '90vw',
+      data: project // Passa o projeto para o modal
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // Opcional: Você pode desabilitar o botão "Candidatar-se"
+        // ou mudar o texto para "Proposta Enviada"
+        // Por enquanto, apenas avisamos que funcionou.
+        this.snackBar.open('Sua proposta foi enviada!', 'OK', { duration: 3000 });
+      }
+    });
+  }
+
+  openProposalList(project: Project, event: MouseEvent): void {
+    event.stopPropagation(); 
+
+    const dialogRef = this.dialog.open(ProposalList, {
+      width: '900px',
+      maxWidth: '90vw',
+      data: project
+    });
+
+    // 2. "Ouvir" o fechamento deste modal
+    dialogRef.afterClosed().subscribe(result => {
+      // 'result' é o { updatedProject, freelancer } que retornamos
+      if (result) {
+        
+        // 3. Atualizar o card do projeto na tela
+        this.projects.update(currentProjects => 
+          currentProjects.map(p => p.id === result.updatedProject.id ? result.updatedProject : p)
+        );
+
+        // 4. Abrir o NOVO modal de "Iniciar Chat"
+        this.dialog.open(ChatConfirm, {
+          width: '500px',
+          data: result.freelancer // Passa o freelancer para o modal de chat
+        });
       }
     });
   }

@@ -26,6 +26,15 @@ export class UserService {
       )
     );
   }
+
+  getUserById(id: string | number): Observable<User> {
+    return this.http.get<UserWithPassword>(`${this.apiUrl}/${id}`).pipe(
+      map(userWithPassword => {
+        const { password, ...user } = userWithPassword;
+        return user;
+      })
+    );
+  }
   
   updateUser(id: string | number, data: Partial<User>): Observable<User> {
     // CORREÇÃO AQUI: this->apiUrl -> this.apiUrl
