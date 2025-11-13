@@ -15,6 +15,9 @@ import { cx } from '../../utils/functions/cx';
 import { SimpleStackedListComponent } from "../../free-stacked-lists/simple";
 import { Router, RouterModule} from "@angular/router";
 import { AuthService } from '../../../services/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ProfileForm } from '../../../modals/profile-form/profile-form';
 
 type User = {
   name: string;
@@ -74,11 +77,16 @@ export class ContentPlaceholderFullWidthThreeColumnComponent {
     MatIconModule,
     AsyncPipe,
     RouterModule,
+    MatMenuModule, 
+    MatDialogModule 
 ],
 })
 export class FullWidthThreeColumnComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
+  
+  private dialog = inject(MatDialog);
+
   readonly cx = cx;
   readonly isLoggedIn = this.authService.isLoggedIn;
 
@@ -166,12 +174,16 @@ export class FullWidthThreeColumnComponent {
     },
   ];
 
-  irParaLogin(): void {
-    if (this.isLoggedIn()) {
-      this.authService.logout();
-    } else {
-      this.router.navigate(['/sign-pag']); 
-    }
+  logout(): void {
+    this.authService.logout();
+  }
+  
+  // 7. Nova função para abrir o modal de perfil
+  openProfileModal(): void {
+    this.dialog.open(ProfileForm, {
+      width: '600px',
+      maxWidth: '90vw',
+    });
   }
   
 }

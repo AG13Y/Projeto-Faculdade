@@ -37,10 +37,10 @@
       </mat-nav-list>
       @if ((isLessThanMD$ | async) === false) {
       <mat-action-list class="mt-auto!">
-        <button mat-list-item (click)="irParaLogin()">
+        <button mat-list-item (click)=" openProfileModal()">
           <img [src]="user().imageUrl" alt="User" matListItemAvatar class="object-cover" />
           <span matListItemTitle>{{ user().name }}</span>
-          <span matListItemLine>{{ user().email }}</span>
+          <span matListItemLine (click)="logout()">{{ user().email }}</span>
         </button>
       </mat-action-list>
       }
@@ -54,7 +54,7 @@
       </button>
       <img class="size-16" src="assets/icon-company.png" alt="Your Company" />
       <span class="flex-1"></span>
-      <button mat-icon-button class="custom-avatar-button" (click)="irParaLogin()"> 
+      <button mat-icon-button class="custom-avatar-button" (click)="openProfileModal()"> 
         <img [src]="user().imageUrl"
           alt="User" 
           class="object-cover rounded-full" />

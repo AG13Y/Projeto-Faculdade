@@ -1,0 +1,64 @@
+<h2 mat-dialog-title class="dark:text-white">Editar Meu Perfil</h2>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="space-y-4 max-h-[70vh]">
+    
+    <mat-form-field class="w-full">
+      <mat-label>Nome Completo</mat-label>
+      <input matInput formControlName="nome">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>URL da Foto</mat-label>
+      <input matInput formControlName="fotoUrl" placeholder="https://...">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Localização</mat-label>
+      <input matInput formControlName="localizacao" placeholder="Ex: São Paulo, SP">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Bio / Sobre</mat-label>
+      <textarea matInput formControlName="bio" rows="3" placeholder="Fale um pouco sobre você ou sua empresa..."></textarea>
+    </mat-form-field>
+
+    @if (user.tipo === 'freelancer') {
+      <div class="border-t dark:border-gray-700 pt-4 space-y-4">
+        <h3 class="text-lg font-medium dark:text-white">Perfil de Freelancer</h3>
+        <mat-form-field class="w-full">
+          <mat-label>Habilidades</mat-label>
+          <input matInput formControlName="habilidades" placeholder="Angular, TypeScript, Node.js">
+          <mat-hint>Separe as habilidades por vírgula.</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Preço por Hora (R$)</mat-label>
+          <input matInput formControlName="precoHora" type="number">
+        </mat-form-field>
+      </div>
+    }
+
+    @if (user.tipo === 'empresa') {
+      <div class="border-t dark:border-gray-700 pt-4 space-y-4">
+        <h3 class="text-lg font-medium dark:text-white">Perfil de Empresa</h3>
+        <mat-form-field class="w-full">
+          <mat-label>Nome da Empresa</mat-label>
+          <input matInput formControlName="nomeEmpresa">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>CNPJ</mat-label>
+          <input matInput formControlName="cnpj">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Website</mat-label>
+          <input matInput formControlName="website" placeholder="https://...">
+        </mat-form-field>
+      </div>
+    }
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="pt-4">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="profileForm.invalid">
+      Salvar Alterações
+    </button>
+  </mat-dialog-actions>
+</form>

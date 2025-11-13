@@ -65,14 +65,14 @@ export class AuthService {
 
   // --- REGISTRO CORRIGIDO ---
  register(data: RegisterData): Observable<User> {
-    const uid = `uid_${Math.random().toString(36).substring(2, 9)}`;
+    const newId = `uid_${Math.random().toString(36).substring(2, 9)}`;
 
     // 2. Criamos o payload da API
     const newUserApiPayload = {
-      ...data, // email, nome, tipo, password, e agora fotoUrl
-      uid: uid,
-      // Se a fotoUrl não foi enviada (é null), usamos o ícone padrão
-      fotoUrl: data.fotoUrl || 'icon-user.png' //
+      ...data,
+      // 3. MUDANÇA AQUI
+      id: newId, 
+      fotoUrl: data.fotoUrl || 'assets/icon-user.png'
     };
 
     return this.http.post<UserWithPassword>(`${this.apiUrl}/users`, newUserApiPayload).pipe(
@@ -97,5 +97,10 @@ export class AuthService {
     localStorage.removeItem('freezy_user');
     this.currentUser.set(null);
     this.router.navigateByUrl('/sign-pag');
+  }
+
+  public updateCurrentUser(user: User): void {
+    this.currentUser.set(user);
+    localStorage.setItem('freezy_user', JSON.stringify(user));
   }
 }
