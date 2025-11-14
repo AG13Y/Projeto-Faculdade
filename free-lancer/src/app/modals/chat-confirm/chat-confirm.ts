@@ -15,7 +15,6 @@ export class ChatConfirm {
   private dialogRef = inject(MatDialogRef<ChatConfirm>);
 
   startChat(): void {
-    // Lógica futura para iniciar o chat
     console.log(`Iniciando chat com ${this.freelancer.nome}`);
     this.dialogRef.close();
   }

@@ -54,9 +54,9 @@
       ],
       "prazoFinal": "2025-11-20T03:00:00.000Z",
       "empresaId": "d45f",
-      "status": "Aberto",
+      "status": "Em Andamento",
       "dataPostagem": "2025-11-13T15:00:59.569Z",
-      "freelancerId": null
+      "freelancerId": "1d84"
     }
   ],
   "users": [
@@ -173,9 +173,37 @@
       "mensagem": "34213432452345422345543",
       "valorProposto": 5000,
       "prazoEstimadoDias": 30,
-      "status": "Pendente",
+      "status": "Aprovada",
       "dataEnvio": "2025-11-13T17:25:53.282Z"
+    },
+    {
+      "id": "73af",
+      "projetoId": "proj_1",
+      "freelancerId": "1d84",
+      "mensagem": "21431413 2345 45425432",
+      "valorProposto": 5000,
+      "prazoEstimadoDias": 30,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-13T18:21:47.243Z"
     }
   ],
-  "reviews": []
+  "reviews": [],
+  "chats": [
+    {
+      "id": "2b36",
+      "participantIds": [
+        "d45f",
+        "dc1c"
+      ],
+      "messages": []
+    },
+    {
+      "id": "31ca",
+      "participantIds": [
+        "d45f",
+        "1d84"
+      ],
+      "messages": []
+    }
+  ]
 }

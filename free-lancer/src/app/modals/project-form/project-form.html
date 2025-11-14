@@ -1,58 +1,43 @@
-<h2 mat-dialog-title class="dark:text-white">{{ modalTitle }}</h2>
+<h2 mat-dialog-title class="dark:text-white">
+  Enviar Proposta para: 
+  <span class="text-indigo-600 dark:text-indigo-400">{{ project.titulo }}</span>
+</h2>
 
-<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="space-y-4">
     
-    <mat-form-field class="w-full">
-      <mat-label>Título do Projeto</mat-label>
-      <input matInput formControlName="titulo" placeholder="Ex: Criar novo app de e-commerce">
-      @if (projectForm.get('titulo')?.hasError('required')) {
-        <mat-error>O título é obrigatório.</mat-error>
-      }
-    </mat-form-field>
-
-    <mat-form-field class="w-full">
-      <mat-label>Descrição Completa</mat-label>
-      <textarea matInput formControlName="descricao" rows="5" placeholder="Descreva o escopo, entregáveis e requisitos..."></textarea>
-      @if (projectForm.get('descricao')?.hasError('required')) {
-        <mat-error>A descrição é obrigatória.</mat-error>
-      }
-    </mat-form-field>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 gap-4">
       <mat-form-field class="w-full">
-        <mat-label>Orçamento (R$)</mat-label>
-        <input matInput formControlName="orcamento" type="number" placeholder="Ex: 5000">
-        @if (projectForm.get('orcamento')?.hasError('required')) {
-          <mat-error>O orçamento é obrigatório.</mat-error>
+        <mat-label>Seu Valor (R$)</mat-label>
+        <input matInput formControlName="valorProposto" type="number" placeholder="Ex: 4500">
+        @if (proposalForm.get('valorProposto')?.hasError('required')) {
+          <mat-error>O valor é obrigatório.</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <mat-label>Prazo Final (Opcional)</mat-label>
-        <input matInput 
-               formControlName="prazoFinal" 
-               [matDatepicker]="picker" 
-               [min]="minDate"
-               placeholder="dd/mm/aaaa">
-        <mat-hint>Selecione uma data</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="w-full">
-        <mat-label>Habilidades</mat-label>
-        <input matInput formControlName="habilidades" placeholder="Ex: Angular, TypeScript, Node.js">
-        <mat-hint>Separe as habilidades por vírgula.</mat-hint>
+        <mat-label>Prazo Estimado (em dias)</mat-label>
+        <input matInput formControlName="prazoEstimadoDias" type="number" placeholder="Ex: 30">
+        @if (proposalForm.get('prazoEstimadoDias')?.hasError('required')) {
+          <mat-error>O prazo é obrigatório.</mat-error>
+        }
       </mat-form-field>
     </div>
+
+    <mat-form-field class="w-full">
+      <mat-label>Sua Mensagem</mat-label>
+      <textarea matInput formControlName="mensagem" rows="6" placeholder="Apresente-se e explique por que você é a pessoa certa para este projeto..."></textarea>
+      @if (proposalForm.get('mensagem')?.hasError('required')) {
+        <mat-error>A mensagem é obrigatória.</mat-error>
+      }
+    </mat-form-field>
 
   </mat-dialog-content>
 
   <mat-dialog-actions align="end" class="pt-4">
     <button mat-button type="button" (click)="close()">Cancelar</button>
-    <button mat-flat-button color="primary" type="submit" [disabled]="projectForm.invalid">
-      Salvar Projeto
+    <button mat-flat-button color="primary" type="submit" [disabled]="proposalForm.invalid">
+      Enviar Proposta
     </button>
   </mat-dialog-actions>
 </form>

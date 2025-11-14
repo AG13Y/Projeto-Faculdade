@@ -1,0 +1,98 @@
+<div class="flex justify-between items-start">
+  <h2 mat-dialog-title class="dark:text-white pb-0">
+    Perfil de {{ user.nome }}
+  </h2>
+  <button mat-icon-button (click)="close()" class="mt-2 mr-2">
+    <mat-icon class="dark:text-white">close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="max-h-[70vh] space-y-6">
+  
+  <div class="flex flex-col sm:flex-row items-center sm:items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+    <img [src]="userPhoto" alt="Foto de {{ user.nome }}" class="w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 text-center sm:text-left">
+      <h3 class="text-xl font-bold dark:text-white">{{ user.nome }}</h3>
+      <p class="text-sm text-indigo-600 dark:text-indigo-400 font-medium capitalize">
+        {{ user.tipo }}
+      </p>
+      @if (user.localizacao) {
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-center justify-center sm:justify-start">
+          <mat-icon class=" mr-1">location_on</mat-icon>
+          {{ user.localizacao }}
+        </p>
+      }
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-center justify-center sm:justify-start">
+        <mat-icon class=" mr-1">email</mat-icon>
+        {{ user.email }}
+      </p>
+    </div>
+  </div>
+
+  @if (user.bio) {
+    <div class="border-t dark:border-gray-700 pt-4">
+      <h4 class="text-lg font-medium dark:text-white">Sobre</h4>
+      <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line mt-2">
+        {{ user.bio }}
+      </p>
+    </div>
+  }
+
+  @if (user.tipo === 'freelancer' && (user.habilidades?.length || user.precoHora)) {
+    <div class="border-t dark:border-gray-700 pt-4 space-y-4">
+      <h4 class="text-lg font-medium dark:text-white">Detalhes do Freelancer</h4>
+      @if (user.precoHora) {
+        <div>
+          <h5 class="text-sm font-semibold dark:text-gray-300">Preço por Hora</h5>
+          <p class="text-indigo-600 dark:text-indigo-400 font-bold text-lg">
+            {{ user.precoHora | currency: 'BRL' }}
+          </p>
+        </div>
+      }
+      @if (user.habilidades?.length) {
+        <div>
+          <h5 class="text-sm font-semibold dark:text-gray-300 mb-2">Habilidades</h5>
+          <mat-chip-listbox aria-label="Habilidades do usuário">
+            @for (skill of user.habilidades; track skill) {
+              <mat-chip class="!bg-indigo-100 !text-indigo-800 dark:!bg-indigo-900 dark:!text-indigo-200">
+                {{ skill }}
+              </mat-chip>
+            }
+          </mat-chip-listbox>
+        </div>
+      }
+    </div>
+  }
+
+  @if (user.tipo === 'empresa' && (user.nomeEmpresa || user.website)) {
+    <div class="border-t dark:border-gray-700 pt-4 space-y-4">
+      <h4 class="text-lg font-medium dark:text-white">Detalhes da Empresa</h4>
+      @if (user.nomeEmpresa) {
+        <div>
+          <h5 class="text-sm font-semibold dark:text-gray-300">Nome da Empresa</h5>
+          <p class="text-gray-900 dark:text-gray-100">{{ user.nomeEmpresa }}</p>
+        </div>
+      }
+      @if (user.website) {
+        <div>
+          <h5 class="text-sm font-semibold dark:text-gray-300">Website</h5>
+          <a [href]="user.website" target="_blank" rel="noopener noreferrer" class="text-indigo-500 hover:underline">
+            {{ user.website }}
+          </a>
+        </div>
+      }
+    </div>
+  }
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="pt-4">
+  <button mat-button (click)="close()">Fechar</button>
+  
+  @if (!isOwnProfile()) {
+    <button mat-flat-button color="primary" (click)="startChat()">
+      <mat-icon>chat</mat-icon>
+      Iniciar Chat
+    </button>
+  }
+</mat-dialog-actions>

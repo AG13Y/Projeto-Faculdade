@@ -4,7 +4,7 @@ export interface Project {
   descricao: string;
   
   // Vínculos
-  empresaId: string; // ID do User (tipo 'empresa') que postou o projeto
+  empresaId: string | number; // ID do User (tipo 'empresa') que postou o projeto
   freelancerId?: string | number; // ID do User (tipo 'freelancer') que está executando
   
   // Metadados
