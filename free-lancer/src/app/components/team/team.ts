@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { User } from '../../models/user.model';
+import { User } from '../../interface/user.model';
 import { UserService } from '../../services/user.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDetail } from '../../modals/user-detail/user-detail';

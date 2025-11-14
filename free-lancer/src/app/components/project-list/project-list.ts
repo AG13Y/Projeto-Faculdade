@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Project } from '../../models/project.model';
+import { Project } from '../../interface/project.model';
 import { ProjectService } from '../../services/project.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProjectDetail } from '../../modals/project-detail/project-detail';

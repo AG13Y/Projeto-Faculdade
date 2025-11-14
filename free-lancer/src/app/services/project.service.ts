@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Project } from '../models/project.model'; // Importa nossa interface
+import { Project } from '../interface/project.model'; // Importa nossa interface
 
 @Injectable({
   providedIn: 'root'

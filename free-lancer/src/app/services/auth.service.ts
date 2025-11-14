@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, UserWithPassword } from '../models/user.model';
+import { User, UserWithPassword } from '../interface/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, tap, catchError, throwError } from 'rxjs';
 

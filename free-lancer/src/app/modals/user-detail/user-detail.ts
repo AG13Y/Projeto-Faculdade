@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '../../models/user.model';
+import { User } from '../../interface/user.model';
 import { MatChipsModule } from '@angular/material/chips';
 import { AuthService } from '../../services/auth.service';
 import { Chat } from '../chat/chat';

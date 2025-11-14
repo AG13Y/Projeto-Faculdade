@@ -6,11 +6,11 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../../models/user.model';
+import { User } from '../../interface/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../services/chat.service';
-import { ChatModel } from '../../models/chat.model';
+import { ChatModel, Message } from '../../interface/chat.model';
 
 interface ChatModalData {
   targetUser: User;
@@ -31,14 +31,13 @@ interface ChatModalData {
   templateUrl: './chat.html',
   styleUrl: './chat.scss',
 })
-export class Chat implements OnInit, OnDestroy, AfterViewChecked {
-  // Acesso ao elemento do container de scroll
+export class Chat {
   @ViewChild('messageContainer') private messageContainer!: ElementRef;
 
   // Injeções
   private chatService = inject(ChatService);
   private snackBar = inject(MatSnackBar);
-  private dialogRef = inject(MatDialogRef<Chat>);
+  private dialogRef = inject(MatDialogRef<ChatModel>);
   public data: ChatModalData = inject(MAT_DIALOG_DATA);
 
   // Propriedades
@@ -46,66 +45,58 @@ export class Chat implements OnInit, OnDestroy, AfterViewChecked {
   public currentUser = this.data.currentUser;
   public chat = signal<ChatModel | null>(null);
   public messageControl = new FormControl('', { nonNullable: true, validators: [Validators.required] });
-  private chatSubscription: Subscription | null = null;
-  private needsScroll = true;
-
+  
+  // 2. Removemos 'chatSubscription' e 'needsScroll'
+  
   ngOnInit(): void {
-    // 1. Encontra ou cria o chat
+    // 3. O 'ngOnInit' agora SÓ busca o chat.
     this.chatService.getOrCreateChat(this.currentUser.id, this.targetUser.id).subscribe({
       next: (chat) => {
-        // --- CORREÇÃO AQUI ---
-        // 2. Definimos o signal IMEDIATAMENTE com o histórico inicial.
         this.chat.set(chat);
-        
-        // 3. O poll agora só busca ATUALIZAÇÕES (de 3 em 3 segundos)
-        this.chatSubscription = this.chatService.pollChatMessages(chat.id).subscribe({
-          next: (updatedChat) => {
-            if (this.chat()?.messages.length !== updatedChat.messages.length) {
-              this.needsScroll = true;
-            }
-            this.chat.set(updatedChat); // Atualiza com novas mensagens
-          },
-          error: (err) => this.showError('Erro ao buscar novas mensagens.')
-        });
+        // Não iniciamos mais o 'poll'
       },
       error: (err) => this.showError('Erro ao iniciar chat.')
     });
   }
 
-  // Rola para o final após a view ser checada e se 'needsScroll' for true
-  ngAfterViewChecked(): void {
-    if (this.needsScroll) {
-      this.scrollToBottom();
-      this.needsScroll = false;
-    }
+  // 4. Usamos AfterViewInit para rolar para baixo UMA VEZ após o chat carregar
+  ngAfterViewInit(): void {
+    this.scrollToBottom();
   }
 
-  // 3. Encerra a inscrição do "polling" ao fechar o modal
-  ngOnDestroy(): void {
-    this.chatSubscription?.unsubscribe();
-  }
-
+  /**
+   * 5. O novo sendMessage (Pessimista)
+   * Não há mais "atualização otimista".
+   */
   sendMessage(): void {
+    // Validação
     if (this.messageControl.invalid) return;
-
     const currentChat = this.chat();
     if (!currentChat) return;
 
-    const messageText = this.messageControl.value;
-    
-    this.messageControl.disable();
-    this.messageControl.reset();
+    const messageText = this.messageControl.value.trim();
+    if (!messageText) {
+      this.messageControl.reset();
+      return;
+    }
 
+    // A. Desabilita o formulário enquanto envia
+    this.messageControl.disable();
+
+    // B. Chama o serviço
     this.chatService.sendMessage(currentChat.id, messageText, this.currentUser.id).subscribe({
-      next: (updatedChat) => {
-        // Esta é a atualização "otimista" (mostra a msg enviada)
-        this.chat.set(updatedChat); 
-        this.needsScroll = true;
+      next: (chatFromServer) => {
+        // C. SUCESSO: O servidor salvou.
+        //    Atualizamos o signal com o chat que o servidor retornou.
+        this.chat.set(chatFromServer);
+        
+        // D. Limpa o form, reabilita e rola para baixo
+        this.messageControl.reset();
         this.messageControl.enable();
-        // O poll vai pegar essa msg daqui 3s, mas não haverá "flicker"
-        // pois o objeto será o mesmo.
+        this.scrollToBottom(); // Rola para a nova mensagem
       },
       error: (err) => {
+        // E. ERRO: Apenas mostramos o erro e reabilitamos o form.
         this.showError('Erro ao enviar mensagem.');
         this.messageControl.enable();
       }
@@ -113,9 +104,12 @@ export class Chat implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   private scrollToBottom(): void {
-    try {
-      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
-    } catch(err) { }
+    // Usamos um setTimeout para garantir que o DOM foi atualizado
+    setTimeout(() => {
+      try {
+        this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+      } catch(err) { }
+    }, 0);
   }
 
   private showError(message: string): void {

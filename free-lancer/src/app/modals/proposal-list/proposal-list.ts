@@ -5,9 +5,9 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { switchMap, of, forkJoin, map, firstValueFrom } from 'rxjs';
-import { Project } from '../../models/project.model';
-import { Proposal } from '../../models/proposal.model';
-import { User } from '../../models/user.model';
+import { Project } from '../../interface/project.model';
+import { Proposal } from '../../interface/proposal.model';
+import { User } from '../../interface/user.model';
 import { ProposalService } from '../../services/proposal.service';
 import { UserService } from '../../services/user.service';
 import { ProjectService } from '../../services/project.service';

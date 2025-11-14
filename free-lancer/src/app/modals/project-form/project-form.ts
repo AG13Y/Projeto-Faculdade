@@ -3,14 +3,14 @@ import { Component, Inject, inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Project } from '../../models/project.model';
+import { Project } from '../../interface/project.model';
 import { AuthService } from '../../services/auth.service';
 import { ProjectService } from '../../services/project.service';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Proposal } from '../../models/proposal.model';
+import { Proposal } from '../../interface/proposal.model';
 import { ProposalService } from '../../services/proposal.service';
 import { ProposalForm } from '../proposal-form/proposal-form';
 

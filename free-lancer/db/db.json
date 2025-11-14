@@ -163,7 +163,7 @@
       "mensagem": "Sou o Brabo e sei fazer as coisas certas",
       "valorProposto": 4500,
       "prazoEstimadoDias": 15,
-      "status": "Pendente",
+      "status": "Aprovada",
       "dataEnvio": "2025-11-13T15:20:54.565Z"
     },
     {
@@ -187,7 +187,6 @@
       "dataEnvio": "2025-11-13T18:21:47.243Z"
     }
   ],
-  "reviews": [],
   "chats": [
     {
       "id": "2b36",
@@ -204,6 +203,41 @@
         "1d84"
       ],
       "messages": []
+    },
+    {
+      "id": "1184",
+      "participantIds": [
+        "d45f",
+        "8de5"
+      ],
+      "messages": []
+    },
+    {
+      "id": "b40f",
+      "participantIds": [
+        "d45f",
+        "b232"
+      ],
+      "messages": []
+    }
+  ],
+  "reviews": [],
+  "documents": [
+    {
+      "id": "d01f",
+      "userId": "d45f",
+      "fileName": "Certificado Gestão de Negocios.pdf",
+      "fileType": "application/pdf",
+      "downloadUrl": "http://fake-storage.com/user_documents/d45f/Certificado Gestão de Negocios.pdf",
+      "uploadedAt": "2025-11-14T13:46:46.591Z"
+    },
+    {
+      "id": "73ae",
+      "userId": "1d84",
+      "fileName": "Decola Tech 2025.pdf",
+      "fileType": "application/pdf",
+      "downloadUrl": "http://fake-storage.com/user_documents/1d84/Decola Tech 2025.pdf",
+      "uploadedAt": "2025-11-14T14:11:32.232Z"
     }
   ]
 }

@@ -6,8 +6,8 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Project } from '../../models/project.model';
-import { Proposal } from '../../models/proposal.model';
+import { Project } from '../../interface/project.model';
+import { Proposal } from '../../interface/proposal.model';
 import { AuthService } from '../../services/auth.service';
 import { ProposalService } from '../../services/proposal.service';
 

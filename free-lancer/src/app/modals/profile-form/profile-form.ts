@@ -6,7 +6,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { User } from '../../models/user.model';
+import { User } from '../../interface/user.model';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
