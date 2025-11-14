@@ -16,6 +16,8 @@ import { AuthService } from '../../services/auth.service';
 import { ProposalForm } from '../../modals/proposal-form/proposal-form';
 import { ProposalList } from '../../modals/proposal-list/proposal-list';
 import { ChatConfirm } from '../../modals/chat-confirm/chat-confirm';
+import { ReviewService } from '../../services/review.service';
+import { ReviewForm } from '../../modals/review-form/review-form';
 
 
 @Component({
@@ -34,9 +36,10 @@ import { ChatConfirm } from '../../modals/chat-confirm/chat-confirm';
 export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
   private projectService = inject(ProjectService);
   private dialog = inject(MatDialog);
-
   private snackBar = inject(MatSnackBar);
   private authService = inject(AuthService);
+
+  private reviewService = inject(ReviewService);
 
   // 6. Esta é a ÚNICA "fonte da verdade". É um signal gravável.
   public projects = signal<Project[]>([]);
@@ -47,7 +50,7 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
   public isFreelancer = computed(() => this.currentUser()?.tipo === 'freelancer');
   
   // 7. REMOVER a linha 'public projects = toSignal(...)'
-
+public reviewsMap = signal<Map<string, boolean>>(new Map());
   // 8. Usar ngOnInit para carregar os dados quando o componente iniciar
   ngOnInit(): void {
     this.loadProjects();
@@ -57,8 +60,69 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
    * Busca os projetos da API e define o valor do signal
    */
   loadProjects(): void {
-    this.projectService.getProjects().subscribe(data => {
-      this.projects.set(data); // Popula o signal com os dados da API
+    this.projectService.getProjects().subscribe(projects => {
+      this.projects.set(projects);
+      // 5. Após carregar os projetos, verificar avaliações existentes
+      this.checkExistingReviews(projects);
+    });
+  }
+
+  checkExistingReviews(projects: Project[]): void {
+    const user = this.currentUser();
+    if (!user) return;
+
+    // Limpa o mapa para o caso de um recarregamento
+    this.reviewsMap.set(new Map()); 
+    
+    for (const project of projects) {
+      if (project.status === 'Concluído') {
+        this.reviewService.checkIfReviewExists(project.id, user.id).subscribe(exists => {
+          // Atualiza o mapa. O 'set' vai adicionar ou sobrescrever.
+          this.reviewsMap.update(map => map.set(project.id, exists));
+        });
+      }
+    }
+  }
+
+  openReviewModal(project: Project, event: MouseEvent): void {
+    event.stopPropagation();
+    
+    const user = this.currentUser();
+    if (!user) return;
+
+    // Determina quem está sendo avaliado
+    let revieweeId: string | number | undefined;
+    let revieweeType: 'empresa' | 'freelancer';
+
+    if (user.tipo === 'empresa' && project.freelancerId) {
+      // Empresa está avaliando o freelancer
+      revieweeId = project.freelancerId;
+      revieweeType = 'freelancer';
+    } else if (user.tipo === 'freelancer' && project.freelancerId === user.id) {
+      // Freelancer está avaliando a empresa
+      revieweeId = project.empresaId;
+      revieweeType = 'empresa';
+    } else {
+      this.snackBar.open('Não foi possível identificar quem avaliar.', 'Fechar', { duration: 3000 });
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ReviewForm, {
+      width: '600px',
+      maxWidth: '90vw',
+      data: {
+        project: project,
+        revieweeId: revieweeId,
+        revieweeType: revieweeType
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // 'result' será a avaliação se foi submetida com sucesso
+      if (result) {
+        // Marcamos este projeto como avaliado no nosso mapa
+        this.reviewsMap.update(map => map.set(project.id, true));
+      }
     });
   }
 

@@ -1,11 +1,16 @@
 export interface Review {
   id: string;
-  projetoId: string; // Projeto que originou esta avaliação
+  projectId: string; // O projeto que está sendo avaliado
   
-  autorId: string; // ID do User que escreveu (ex: empresa)
-  destinatarioId: string; // ID do User que foi avaliado (ex: freelancer)
-  
+  // Quem escreveu a avaliação
+  reviewerId: string | number; 
+  reviewerType: 'empresa' | 'freelancer';
+
+  // Quem está sendo avaliado
+  revieweeId: string | number; 
+  revieweeType: 'empresa' | 'freelancer';
+
   rating: number; // Nota de 1 a 5
-  comentario: string;
-  data: Date;
+  comment: string; // O feedback em texto
+  timestamp: string;
 }

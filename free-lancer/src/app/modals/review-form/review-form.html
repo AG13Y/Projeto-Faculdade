@@ -1,0 +1,49 @@
+<h2 mat-dialog-title class="dark:text-white">
+  Avaliar Projeto: {{ data.project.titulo }}
+</h2>
+
+<mat-dialog-content>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+    Deixe sua avaliação sobre sua experiência com 
+    @if (data.revieweeType === 'freelancer') {
+      o freelancer
+    } @else {
+      a empresa
+    }.
+  </p>
+
+  <form [formGroup]="reviewForm" class="space-y-4">
+    
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nota (1 a 5)</mat-label>
+      <mat-select formControlName="rating">
+        @for (star of ratingOptions; track star) {
+          <mat-option [value]="star">{{ star }} Estrela(s)</mat-option>
+        }
+      </mat-select>
+      @if (reviewForm.get('rating')?.hasError('required')) {
+        <mat-error>A nota é obrigatória.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Seu Feedback</mat-label>
+      <textarea matInput formControlName="comment" rows="5" 
+                placeholder="Descreva sua experiência, pontos positivos e negativos..."></textarea>
+      @if (reviewForm.get('comment')?.hasError('required')) {
+        <mat-error>O comentário é obrigatório.</mat-error>
+      }
+      @if (reviewForm.get('comment')?.hasError('minlength')) {
+        <mat-error>Escreva pelo menos 10 caracteres.</mat-error>
+      }
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="pt-4">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="reviewForm.invalid" (click)="onSubmit()">
+    Enviar Avaliação
+  </button>
+</mat-dialog-actions>
