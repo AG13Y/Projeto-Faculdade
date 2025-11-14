@@ -11,6 +11,7 @@ import { User } from '../../interface/user.model';
 import { ProposalService } from '../../services/proposal.service';
 import { UserService } from '../../services/user.service';
 import { ProjectService } from '../../services/project.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 export interface EnrichedProposal {
   proposal: Proposal;
@@ -23,7 +24,8 @@ export interface EnrichedProposal {
     CommonModule,
     MatDialogModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule,
   ],
   templateUrl: './proposal-list.html',
   styleUrl: './proposal-list.scss',

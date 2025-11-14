@@ -1,3 +1,5 @@
+import { UserDocument } from "./document.model";
+
 export interface Proposal {
   id: string; // ID único da proposta
   projetoId: string; // ID do projeto ao qual se refere
@@ -9,4 +11,6 @@ export interface Proposal {
   
   status: 'Pendente' | 'Aprovada' | 'Recusada';
   dataEnvio: Date;
+
+  attachedDocuments?: UserDocument[];
 }

@@ -140,9 +140,20 @@
         ""
       ],
       "precoHora": null,
-      "nomeEmpresa": "",
-      "cnpj": "",
-      "website": ""
+      "nomeEmpresa": "Dollynho Refrigerante",
+      "cnpj": "1231231234124",
+      "website": "Dollynho.com"
+    },
+    {
+      "id": "cebb",
+      "nome": "Enzo",
+      "tipo": "freelancer",
+      "fotoUrl": "https://i.pinimg.com/originals/11/94/30/11943085e6d79a0c223eeb4d335d7f77.jpg",
+      "email": "Enzo13@gmail.com",
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "terms": true,
+      "uid": "uid_v0e3mr5"
     }
   ],
   "proposals": [
@@ -185,6 +196,46 @@
       "prazoEstimadoDias": 30,
       "status": "Pendente",
       "dataEnvio": "2025-11-13T18:21:47.243Z"
+    },
+    {
+      "id": "8a07",
+      "projetoId": "5234",
+      "freelancerId": "1d84",
+      "mensagem": "fdsfsdfsdgsfgsgdsfgsgf",
+      "valorProposto": 5000,
+      "prazoEstimadoDias": 43,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-14T14:27:13.295Z",
+      "attachedDocuments": [
+        {
+          "id": "73ae",
+          "userId": "1d84",
+          "fileName": "Decola Tech 2025.pdf",
+          "fileType": "application/pdf",
+          "downloadUrl": "http://fake-storage.com/user_documents/1d84/Decola Tech 2025.pdf",
+          "uploadedAt": "2025-11-14T14:11:32.232Z"
+        }
+      ]
+    },
+    {
+      "id": "5ef0",
+      "projetoId": "5234",
+      "freelancerId": "cebb",
+      "mensagem": "sei bastante coisa sobre angular",
+      "valorProposto": 6000,
+      "prazoEstimadoDias": 3,
+      "status": "Pendente",
+      "dataEnvio": "2025-11-14T14:40:19.924Z",
+      "attachedDocuments": [
+        {
+          "id": "4c9b",
+          "userId": "cebb",
+          "fileName": "Freelancers (2).pdf",
+          "fileType": "application/pdf",
+          "downloadUrl": "http://fake-storage.com/user_documents/cebb/Freelancers (2).pdf",
+          "uploadedAt": "2025-11-14T14:39:52.385Z"
+        }
+      ]
     }
   ],
   "chats": [
@@ -238,6 +289,14 @@
       "fileType": "application/pdf",
       "downloadUrl": "http://fake-storage.com/user_documents/1d84/Decola Tech 2025.pdf",
       "uploadedAt": "2025-11-14T14:11:32.232Z"
+    },
+    {
+      "id": "4c9b",
+      "userId": "cebb",
+      "fileName": "Freelancers (2).pdf",
+      "fileType": "application/pdf",
+      "downloadUrl": "http://fake-storage.com/user_documents/cebb/Freelancers (2).pdf",
+      "uploadedAt": "2025-11-14T14:39:52.385Z"
     }
   ]
 }

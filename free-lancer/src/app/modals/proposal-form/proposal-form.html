@@ -31,6 +31,39 @@
         <mat-error>A mensagem é obrigatória.</mat-error>
       }
     </mat-form-field>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Anexar documentos</mat-label>
+      <mat-select formControlName="documentos" multiple>
+        
+          <mat-option disabled class="italic text-xs">
+            Selecione os arquivos que você enviou em "Meus Documentos"
+          </mat-option>
+        
+
+        @if (isLoadingDocs()) {
+          <mat-option disabled>Carregando seus documentos...</mat-option>
+        }
+
+        @for (doc of myDocuments(); track doc.id) {
+          <mat-option [value]="doc" class="mr-2 align-middle !text-base">
+           
+              @switch (true) {
+                @case (doc.fileType.includes('pdf')) { picture_as_pdf }
+                @case (doc.fileType.includes('image')) { image }
+                @default { description }
+              }
+            
+            {{ doc.fileName }}
+          </mat-option>
+        } @empty {
+          @if (!isLoadingDocs()) {
+            <mat-option disabled>
+              Você não tem documentos. Vá para "Meus Documentos" para enviar.
+            </mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
 
   </mat-dialog-content>
 
