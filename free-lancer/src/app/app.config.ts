@@ -17,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     // 2. Adicione o provider aqui
     provideHttpClient(),
     provideNativeDateAdapter(),
+   
     
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
@@ -29,3 +30,7 @@ export const appConfig: ApplicationConfig = {
     }
   ]
 };
+function provideMatIcon(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
+  throw new Error("Function not implemented.");
+}
+

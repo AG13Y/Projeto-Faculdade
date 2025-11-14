@@ -40,7 +40,7 @@ export class ReviewForm implements OnInit {
   private reviewService = inject(ReviewService);
   private authService = inject(AuthService);
   public data: ReviewFormData = inject(MAT_DIALOG_DATA);
-  private currentUser = this.authService.currentUser();
+  
 
   public reviewForm!: FormGroup;
   public ratingOptions = [1, 2, 3, 4, 5]; // Opções de nota
@@ -60,7 +60,7 @@ export class ReviewForm implements OnInit {
       this.reviewForm.markAllAsTouched();
       return;
     }
-    const currentUser = this.currentUser;
+    const currentUser = this.authService.currentUser();
 
     // 2. Verificação de segurança
     if (!currentUser) {

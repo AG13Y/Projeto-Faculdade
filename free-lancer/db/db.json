@@ -56,7 +56,7 @@
       "empresaId": "d45f",
       "status": "Concluído",
       "dataPostagem": "2025-11-13T15:00:59.569Z",
-      "freelancerId": "1d84"
+      "freelancerId": "cebb"
     }
   ],
   "users": [
@@ -224,7 +224,7 @@
       "mensagem": "sei bastante coisa sobre angular",
       "valorProposto": 6000,
       "prazoEstimadoDias": 3,
-      "status": "Pendente",
+      "status": "Aprovada",
       "dataEnvio": "2025-11-14T14:40:19.924Z",
       "attachedDocuments": [
         {
@@ -270,6 +270,14 @@
         "b232"
       ],
       "messages": []
+    },
+    {
+      "id": "3c39",
+      "participantIds": [
+        "d45f",
+        "cebb"
+      ],
+      "messages": []
     }
   ],
   "documents": [
@@ -296,6 +304,41 @@
       "fileType": "application/pdf",
       "downloadUrl": "http://fake-storage.com/user_documents/cebb/Freelancers (2).pdf",
       "uploadedAt": "2025-11-14T14:39:52.385Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "7d98",
+      "projectId": "5234",
+      "rating": 3,
+      "comment": "2314342433",
+      "timestamp": "2025-11-14T18:53:20.183Z",
+      "reviewerId": "1d84",
+      "reviewerType": "freelancer",
+      "revieweeId": "d45f",
+      "revieweeType": "empresa"
+    },
+    {
+      "id": "210d",
+      "projectId": "5234",
+      "rating": 4,
+      "comment": "Foi bom trabalhar no projeto",
+      "timestamp": "2025-11-14T19:21:35.866Z",
+      "reviewerId": "cebb",
+      "reviewerType": "freelancer",
+      "revieweeId": "d45f",
+      "revieweeType": "empresa"
+    },
+    {
+      "id": "315f",
+      "projectId": "5234",
+      "rating": 5,
+      "comment": "Foi um bom projeto para trabalhar",
+      "timestamp": "2025-11-14T19:48:44.141Z",
+      "reviewerId": "d45f",
+      "reviewerType": "empresa",
+      "revieweeId": "cebb",
+      "revieweeType": "freelancer"
     }
   ]
 }
