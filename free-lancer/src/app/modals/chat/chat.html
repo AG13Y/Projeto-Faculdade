@@ -2,6 +2,17 @@
   <h2 mat-dialog-title class="dark:text-white pb-0">
     Chat com {{ targetUser.nome }}
   </h2>
+
+  
+    <button mat-icon-button 
+            aria-label="Iniciar chamada"
+            (click)="onCallClick()" 
+            class="mt-4 mr-24">
+      <mat-icon class="dark:text-white"><span class="material-symbols-outlined">
+video_call
+</span></mat-icon>
+    </button>
+
   <button mat-icon-button (click)="close()" class="mt-2 mr-2">
     <mat-icon class="dark:text-white">close</mat-icon>
   </button>

@@ -161,15 +161,15 @@ export class FullWidthThreeColumnComponent {
   ];
   readonly teamMenu = [
     {
-      label: 'Alpha',
+      label: 'App Freezy',
       id: 'alpha',
     },
     {
-      label: 'Beta',
+      label: 'App Waterfall',
       id: 'beta',
     },
     {
-      label: 'Gamma',
+      label: 'Website do Dollynho',
       id: 'gamma',
     },
   ];

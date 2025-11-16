@@ -1,13 +1,94 @@
+<div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
 
+  <section class="py-16 sm:py-24 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center">Como Funciona</h2>
+      <p class="text-lg text-center mt-4 text-gray-600 dark:text-gray-300">Comece em 3 passos simples, baseado no fluxo do nosso app.</p>
+      
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="text-center">
+          <div class="p-4 bg-indigo-100 dark:bg-indigo-900 rounded-full inline-block">
+            <mat-icon class="text-3xl text-indigo-600 dark:text-indigo-300">description</mat-icon>
+          </div>
+          <h3 class="mt-6 text-xl font-semibold">1. Publique seu Projeto</h3>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">Empresas (como a sua) descrevem o escopo, orçamento e habilidades necessárias.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="p-4 bg-indigo-100 dark:bg-indigo-900 rounded-full inline-block">
+             <mat-icon class="text-3xl text-indigo-600 dark:text-indigo-300">people</mat-icon>
+          </div>
+          <h3 class="mt-6 text-xl font-semibold">2. Receba Propostas</h3>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">Freelancers qualificados enviam propostas com orçamentos e anexam documentos.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="p-4 bg-indigo-100 dark:bg-indigo-900 rounded-full inline-block">
+             <mat-icon class="text-3xl text-indigo-600 dark:text-indigo-300">check_circle</mat-icon>
+          </div>
+          <h3 class="mt-6 text-xl font-semibold">3. Colabore e Avalie</h3>
+          <p class="mt-2 text-gray-600 dark:text-gray-300">Aceite a melhor proposta, gerencie o projeto, marque como "Concluído" e deixe sua avaliação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="rounded-lg bg-white dark:bg-gray-800 shadow p-6">
-  <h2 class="text-xl font-medium text-gray-900 dark:text-white">
-    Bem-vindo(a) de volta, {{ userName() }}!
-  </h2>
-  <p class="mt-2 text-gray-600 dark:text-gray-300">
-    Este é o seu painel principal. Por enquanto, ele ainda está em construção.
-  </p>
-  <p class="mt-2 text-gray-600 dark:text-gray-300">
-    Navegue pelo menu ao lado para ver seus projetos, time e outras funcionalidades.
-  </p>
+  <section class="py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-base font-semibold text-indigo-600 dark:text-indigo-400">Para Empresas</h2>
+        <h3 class="mt-2 text-3xl font-bold">Encontre o Talento Certo, Rápido.</h3>
+        <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">Chega de caçar currículos. Publique seu projeto e deixe que os profissionais venham até você.</p>
+        <ul class="mt-6 space-y-4">
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Acesso a um pool de talentos prontos para começar.</span>
+          </li>
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Compare propostas, portfólios e documentos em um só lugar.</span>
+          </li>
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Use o histórico de avaliações (Relatórios) para contratar com confiança.</span>
+          </li>
+        </ul>
+      </div>
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1471&auto=format&fit=crop" 
+           alt="Equipe colaborando" class="rounded-lg shadow-xl aspect-video object-cover">
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1470&auto=format&fit=crop" 
+           alt="Freelancer trabalhando" class="rounded-lg shadow-xl aspect-video object-cover md:order-last">
+      <div class="md:order-first">
+        <h2 class="text-base font-semibold text-indigo-600 dark:text-indigo-400">Para Freelancers</h2>
+        <h3 class="mt-2 text-3xl font-bold">Conquiste sua Independência.</h3>
+        <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">Encontre projetos que valorizam suas habilidades e construa seu portfólio profissional.</p>
+        <ul class="mt-6 space-y-4">
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Filtre projetos que se encaixam perfeitamente no seu perfil.</span>
+          </li>
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Envie propostas profissionais anexando seu portfólio e documentos.</span>
+          </li>
+          <li class="flex gap-x-3">
+            <mat-icon class="text-green-500">check_circle</mat-icon>
+            <span>Construa sua reputação com avaliações de clientes reais.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700">
+    <p class="text-center text-xs text-gray-500 dark:text-gray-400">
+      &copy; 2025 Freezy Platform. Todos os direitos reservados.
+    </p>
+  </footer>
+
 </div>

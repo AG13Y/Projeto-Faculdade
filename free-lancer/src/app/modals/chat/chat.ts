@@ -47,6 +47,13 @@ export class Chat {
   public messageControl = new FormControl('', { nonNullable: true, validators: [Validators.required] });
   
   // 2. Removemos 'chatSubscription' e 'needsScroll'
+
+  onCallClick(): void {
+    // Por enquanto, apenas avisamos o usuário que a função não está pronta
+    this.snackBar.open('Funcionalidade de chamada ainda não implementada.', 'Fechar', { 
+      duration: 3000 
+    });
+  }
   
   ngOnInit(): void {
     // 3. O 'ngOnInit' agora SÓ busca o chat.

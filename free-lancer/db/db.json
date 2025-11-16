@@ -2,7 +2,7 @@
   "projects": [
     {
       "id": "proj_1",
-      "titulo": "Desenvolvimento do App Freezee",
+      "titulo": "Desenvolvimento do App Freezy",
       "descricao": "Na verdade o Orçamento está sendo a minha sanidade mental",
       "empresaId": "emp_abc",
       "freelancerId": null,
@@ -339,6 +339,22 @@
       "reviewerType": "empresa",
       "revieweeId": "cebb",
       "revieweeType": "freelancer"
+    }
+  ],
+  "meetings": [
+    {
+      "id": "d2a7",
+      "userId": "d45f",
+      "title": "Reunião com o Toninho",
+      "time": "14:30",
+      "date": "2025-11-16"
+    },
+    {
+      "id": "bb45",
+      "userId": "d45f",
+      "title": "Reunião com o Enzo",
+      "time": "16:00",
+      "date": "2025-11-16"
     }
   ]
 }

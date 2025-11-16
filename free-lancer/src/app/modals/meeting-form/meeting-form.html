@@ -1,0 +1,39 @@
+<h2 mat-dialog-title class="dark:text-white">
+  Agendar Evento
+</h2>
+
+<mat-dialog-content>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+    Agendando para: {{ selectedDate | date: 'dd/MM/yyyy' }}
+  </p>
+
+  <form [formGroup]="meetingForm" class="space-y-4">
+    
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Título do Evento</mat-label>
+      <input matInput formControlName="title" placeholder="Ex: Reunião com Cliente X">
+      @if (meetingForm.get('title')?.hasError('required')) {
+        <mat-error>O título é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Horário (HH:MM)</mat-label>
+      <input matInput formControlName="time" placeholder="Ex: 14:30">
+      @if (meetingForm.get('time')?.hasError('required')) {
+        <mat-error>A hora é obrigatória.</mat-error>
+      }
+      @if (meetingForm.get('time')?.hasError('pattern')) {
+        <mat-error>Formato inválido. Use HH:MM (ex: 09:00 ou 15:30).</mat-error>
+      }
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="pt-4">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="meetingForm.invalid" (click)="onSubmit()">
+    Salvar Evento
+  </button>
+</mat-dialog-actions>

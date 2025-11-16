@@ -18,6 +18,11 @@ import { ProposalList } from '../../modals/proposal-list/proposal-list';
 import { ChatConfirm } from '../../modals/chat-confirm/chat-confirm';
 import { ReviewService } from '../../services/review.service';
 import { ReviewForm } from '../../modals/review-form/review-form';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { startWith } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field'; // Novo
+import { MatInputModule } from '@angular/material/input';     // Novo
 
 
 @Component({
@@ -29,7 +34,10 @@ import { ReviewForm } from '../../modals/review-form/review-form';
     MatSnackBarModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule],
+    MatMenuModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule],
   templateUrl: './project-list.html',
   styleUrl: './project-list.scss',
 })
@@ -48,10 +56,32 @@ export class ProjectList implements OnInit { // 5. Implementar 'OnInit'
   public currentUser = this.authService.currentUser;
   public isEmpresa = computed(() => this.currentUser()?.tipo === 'empresa');
   public isFreelancer = computed(() => this.currentUser()?.tipo === 'freelancer');
+
+  public reviewsMap = signal<Map<string, boolean>>(new Map());
+
+  public searchControl = new FormControl('');
   
-  // 7. REMOVER a linha 'public projects = toSignal(...)'
-public reviewsMap = signal<Map<string, boolean>>(new Map());
-  // 8. Usar ngOnInit para carregar os dados quando o componente iniciar
+  public searchTerm = toSignal(
+    this.searchControl.valueChanges.pipe(startWith(''))
+  );
+
+  // Cria um NOVO signal (computado) que filtra a lista de projetos
+  public filteredProjects = computed(() => {
+    const term = this.searchTerm()?.toLowerCase() || '';
+    const allProjects = this.projects(); // Pega a master list
+
+    if (!term) {
+      return allProjects; // Sem filtro, retorna tudo
+    }
+
+    // Retorna apenas os projetos que dão "match"
+    return allProjects.filter(project =>
+      project.titulo.toLowerCase().includes(term) ||
+      project.descricao.toLowerCase().includes(term) ||
+      project.habilidadesNecessarias?.some(h => h.toLowerCase().includes(term))
+    );
+  });
+
   ngOnInit(): void {
     this.loadProjects();
   }
