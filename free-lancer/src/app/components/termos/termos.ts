@@ -3,7 +3,10 @@ import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-termos',
-  imports: [RouterLink],
+  imports: [CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule],
   templateUrl: './termos.html',
   styleUrl: './termos.scss',
 })

@@ -57,6 +57,20 @@
       "status": "Em Andamento",
       "dataPostagem": "2025-11-13T15:00:59.569Z",
       "freelancerId": "1d84"
+    },
+    {
+      "id": "4a88",
+      "titulo": "Exccomer",
+      "descricao": "dfdsfsdfsdfsdfsfsfsdfs",
+      "orcamento": 6000,
+      "habilidadesNecessarias": [
+        "Angular",
+        "AHhhh"
+      ],
+      "prazoFinal": "2025-11-19T03:00:00.000Z",
+      "empresaId": "d45f",
+      "status": "Aberto",
+      "dataPostagem": "2025-11-17T01:45:47.649Z"
     }
   ],
   "users": [
